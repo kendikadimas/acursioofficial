@@ -1,75 +1,62 @@
 import React from 'react';
 import Link from 'next/link';
-import { ShieldCheck, Lock, QrCode, Clock, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Lock, QrCode, Clock } from 'lucide-react';
 
 export const SalesStats: React.FC = () => {
   const guaranteePillars = [
     {
       icon: ShieldCheck,
-      title: 'Garansi 100% Anti Hack-Back',
-      description: 'Perlindungan resmi dari upaya penarikan kembali. Garansi akun pengganti setara atau pengembalian dana 100%.',
-      tag: 'GARANSI PENUH',
-      accent: 'border-blue-500/40 text-blue-400 bg-blue-500/10',
+      title: 'Garansi Anti Hack-Back',
+      description: 'Perlindungan dari upaya penarikan akun oleh pemilik lama. Disediakan akun pengganti setara atau pengembalian dana penuh.',
     },
     {
       icon: Lock,
       title: 'Verifikasi Data & Bind Bersih',
-      description: 'Pengecekan teliti seluruh riwayat akun: email pertama, Moonton bind, Google Play, dan login pihak ketiga bebas masalah.',
-      tag: 'TERVERIFIKASI',
-      accent: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10',
+      description: 'Pengecekan detail seluruh data akun: email pertama, login Moonton/Google/pihak ketiga telah dipastikan aman dan siap ganti data.',
     },
     {
       icon: QrCode,
-      title: 'QRIS All Payment Resmi',
-      description: 'Proses pembayaran instan tanpa ribet. Mendukung seluruh m-Banking (BCA, Mandiri, BRI, BNI) dan E-Wallet (GoPay, DANA, OVO).',
-      tag: 'INSTAN',
-      accent: 'border-sky-500/40 text-sky-400 bg-sky-500/10',
+      title: 'Pembayaran QRIS Nasional',
+      description: 'Menerima pembayaran resmi melalui QRIS yang dapat di-scan dari aplikasi m-Banking bank apa saja maupun e-wallet.',
     },
     {
       icon: Clock,
-      title: 'Serah Terima 5-15 Menit',
-      description: 'Admin memandu proses penggantian email dan kata sandi secara langsung via WhatsApp resmi hingga akun 100% aman.',
-      tag: 'KILAT',
-      accent: 'border-indigo-500/40 text-indigo-400 bg-indigo-500/10',
+      title: 'Proses Serah Terima Cepat',
+      description: 'Admin memandu pengubahan data login dan pengamanan akun secara langsung via WhatsApp resmi hingga selesai.',
     },
   ];
 
   return (
     <section id="jaminan" className="py-8 sm:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="mb-6 sm:mb-8 text-center max-w-3xl mx-auto">
+      <div className="mb-6 sm:mb-8 text-center max-w-2xl mx-auto">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-outfit">
           Jaminan Transaksi & Keamanan Akun
         </h2>
-        <p className="mt-1 text-sm sm:text-base text-slate-400 font-medium">
-          Setiap pembelian akun game di Acursio dilindungi protokol verifikasi resmi untuk menjamin keamanan pembeli.
+        <p className="mt-1 text-sm text-slate-400 font-medium">
+          Setiap transaksi akun game di Acursio dilindungi protokol verifikasi resmi untuk menjamin keamanan pembeli.
         </p>
       </div>
 
-      {/* 4 Honest Trust Pillars */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      {/* 4 Clean Pillars */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {guaranteePillars.map((item, idx) => {
           const Icon = item.icon;
           return (
             <div
               key={idx}
-              className="rounded-2xl p-5 sm:p-6 bg-[#0c101a] border border-[#1b2336] hover:border-blue-500/60 transition-all duration-300 flex flex-col justify-between shadow-md"
+              className="rounded-xl p-5 bg-[#0a0e17] border border-slate-800 hover:border-slate-700 transition-colors flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-500/30 text-sky-400 flex items-center justify-center">
-                    <Icon size={24} />
-                  </div>
-                  <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md border font-mono ${item.accent}`}>
-                    {item.tag}
-                  </span>
+                <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-sky-400 flex items-center justify-center mb-3">
+                  <Icon size={20} />
                 </div>
 
-                <h3 className="text-base sm:text-lg font-bold text-white mb-2 font-outfit leading-snug">
+                <h3 className="text-base font-bold text-white mb-1.5 font-outfit leading-snug">
                   {item.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium">
+                <p className="text-xs text-slate-400 leading-relaxed font-normal">
                   {item.description}
                 </p>
               </div>
@@ -79,13 +66,12 @@ export const SalesStats: React.FC = () => {
       </div>
 
       {/* Link to /jaminan */}
-      <div className="mt-8 text-center">
+      <div className="mt-6 text-center">
         <Link 
           href="/jaminan"
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-sky-400 hover:text-white font-bold text-xs border border-[#1e2a3f] transition-all font-outfit group"
+          className="inline-block px-5 py-2.5 rounded-lg bg-[#121826] hover:bg-[#182133] text-slate-300 hover:text-white font-semibold text-xs border border-slate-800 transition-colors font-outfit"
         >
-          <span>Pelajari Selengkapnya Protokol Jaminan & FAQ</span>
-          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          Pelajari Selengkapnya Protokol Jaminan & FAQ
         </Link>
       </div>
     </section>

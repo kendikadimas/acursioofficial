@@ -130,9 +130,6 @@ export const Footer: React.FC = () => {
               <p className="text-[11px] text-slate-400 leading-relaxed">
                 Scan mudah melalui BCA Mobile, Mandiri Livin, BRImo, DANA, GoPay, OVO, ShopeePay, dan LinkAja. Bukti transfer dikonfirmasi ke WhatsApp resmi.
               </p>
-              <div className="text-[10px] font-mono text-amber-300">
-                NMID: ID1020304050607
-              </div>
             </div>
           </div>
 

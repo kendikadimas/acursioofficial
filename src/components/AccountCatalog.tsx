@@ -385,22 +385,20 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
                         )}
                       </div>
 
-                      {/* 5. Spek bisa dilihat setelah klik (Buttons) */}
+                      {/* 5. Spek bisa dilihat setelah klik (Clean Buttons) */}
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => onSelectAccount(acc)}
-                          className="flex-1 py-2.5 px-3 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-slate-300 hover:text-white font-semibold text-xs transition-colors border border-[#1e2a3f] text-center flex items-center justify-center gap-1.5"
+                          className="flex-1 py-2.5 px-3 rounded-lg bg-[#121826] hover:bg-[#1a2336] text-slate-300 hover:text-white font-semibold text-xs transition-colors border border-slate-700/80 text-center"
                         >
-                          <Eye size={13} className="text-sky-400" />
-                          <span>Lihat Spek</span>
+                          Lihat Spek
                         </button>
 
                         <button
                           onClick={() => onInstantBuy(acc)}
-                          className="flex-1 py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-all shadow-md shadow-blue-600/30 text-center font-outfit flex items-center justify-center gap-1.5"
+                          className="flex-1 py-2.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors text-center font-outfit"
                         >
-                          <ShoppingCart size={13} />
-                          <span>Beli Akun</span>
+                          Beli Akun
                         </button>
                       </div>
                     </div>

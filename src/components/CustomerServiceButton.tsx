@@ -2,32 +2,24 @@
 
 import React, { useState } from 'react';
 import { PAYMENT_CONFIG } from '@/data/payment';
-import { Headphones, X, ShieldCheck, PhoneCall, ExternalLink } from 'lucide-react';
+import { MessageSquare, X, ShieldCheck } from 'lucide-react';
 
 export const CustomerServiceButton: React.FC = () => {
   const [popupOpen, setPopupOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-4 right-4 z-40">
+    <div className="fixed bottom-5 right-5 z-40">
       {/* Quick CS Popup dialog */}
       {popupOpen && (
-        <div className="absolute bottom-16 right-0 w-80 rounded-2xl bg-[#0c101a] border border-[#1e293b] shadow-2xl p-4 text-white mb-2 animate-in fade-in slide-in-from-bottom-3 duration-200">
-          <div className="flex items-center justify-between pb-3 border-b border-[#1b2333] mb-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-black text-xs shadow-xs">
-                CS
-              </div>
-              <div>
-                <div className="text-xs font-black text-white">Customer Service Acursio</div>
-                <div className="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  Online 24 Jam
-                </div>
-              </div>
+        <div className="absolute bottom-14 right-0 w-72 sm:w-80 rounded-xl bg-[#0d121c] border border-slate-800 shadow-xl p-4 text-white mb-2">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+            <div>
+              <div className="text-xs font-bold text-white">Customer Service Acursio</div>
+              <div className="text-[11px] text-slate-400">Admin WhatsApp Resmi</div>
             </div>
             <button
               onClick={() => setPopupOpen(false)}
-              className="text-slate-400 hover:text-white p-1"
+              className="text-slate-400 hover:text-white p-1 rounded-md"
               aria-label="Tutup jendela bantuan"
             >
               <X size={16} />
@@ -35,39 +27,34 @@ export const CustomerServiceButton: React.FC = () => {
           </div>
 
           <p className="text-xs text-slate-300 mb-3 leading-relaxed">
-            Ada pertanyaan seputar akun game, stok terbaru, atau butuh bantuan verifikasi transfer QRIS? Hubungi kami langsung via WhatsApp.
+            Butuh konsultasi akun, cek ketersediaan stok, atau konfirmasi bukti pembayaran QRIS? Hubungi admin resmi kami.
           </p>
 
           <a
             href={`https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=Halo%20Admin%20Acursio,%20saya%20butuh%20bantuan%20seputar%20akun%20game`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs tracking-wider uppercase transition-all shadow-md shadow-emerald-600/30"
+            className="block text-center w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors"
           >
-            <PhoneCall size={15} />
-            <span>Chat WhatsApp Sekarang</span>
-            <ExternalLink size={13} />
+            Chat WhatsApp Admin
           </a>
 
-          <div className="mt-2.5 pt-2.5 border-t border-[#171f30] flex items-center justify-center gap-1.5 text-[10px] text-slate-400 font-semibold">
-            <ShieldCheck size={12} className="text-blue-400" />
-            <span>Layanan Pelanggan Resmi & Bergaransi</span>
+          <div className="mt-2.5 pt-2.5 border-t border-slate-800/80 flex items-center justify-center gap-1.5 text-[10px] text-slate-400 font-medium">
+            <ShieldCheck size={13} className="text-sky-400" />
+            <span>Nomor resmi terdaftar: {PAYMENT_CONFIG.whatsappDisplay}</span>
           </div>
         </div>
       )}
 
-      {/* Floating Pill Button */}
+      {/* Floating Support Button: Clean, discreet, non-intrusive */}
       <button
         onClick={() => setPopupOpen(!popupOpen)}
-        className="group flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs sm:text-sm tracking-wider uppercase shadow-2xl shadow-blue-600/40 border border-sky-400/40 transition-all duration-300 transform hover:-translate-y-1 active:scale-95"
-        aria-label="Buka layanan Customer Service"
+        className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#111724] hover:bg-[#172133] text-white border border-slate-700/80 shadow-lg text-xs font-semibold transition-colors"
+        aria-label="Buka layanan bantuan WhatsApp"
         aria-expanded={popupOpen}
       >
-        {/* Mascot Avatar */}
-        <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-black/40 text-white flex items-center justify-center shrink-0 border border-white/30">
-          <Headphones size={15} className="text-sky-300 group-hover:rotate-12 transition-transform" />
-        </div>
-        <span className="font-extrabold text-white drop-shadow-xs">CUSTOMER SERVICE</span>
+        <MessageSquare size={16} className="text-sky-400" />
+        <span>Bantuan WhatsApp</span>
       </button>
     </div>
   );

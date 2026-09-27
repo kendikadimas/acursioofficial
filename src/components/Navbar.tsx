@@ -33,35 +33,34 @@ export const Navbar: React.FC = () => {
   const navItems = [
     { id: 'beranda', label: 'Beranda', icon: Home, href: '/' },
     { id: 'game', label: 'Pilihan Game', icon: Gamepad2, href: '/game' },
-    { id: 'katalog', label: 'Katalog Akun', icon: ShoppingBag, href: '/katalog', highlight: true },
+    { id: 'katalog', label: 'Katalog Akun', icon: ShoppingBag, href: '/katalog' },
     { id: 'jaminan', label: 'Jaminan Akun', icon: ShieldCheck, href: '/jaminan' },
     { id: 'kontak', label: 'Kontak', icon: PhoneCall, href: '/kontak' },
   ];
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
         isScrolled 
-          ? 'bg-[#06080d]/95 backdrop-blur-md border-b border-[#1b2333] shadow-xl shadow-black/50' 
-          : 'bg-[#080b12] border-b border-[#161c28]'
+          ? 'bg-[#06080d]/95 backdrop-blur-md border-b border-slate-800' 
+          : 'bg-[#080b12] border-b border-slate-800/80'
       }`}
     >
       {/* Kalana Labs Prototype Notice Bar */}
-      <aside aria-label="Pengumuman Prototipe Kalana Labs" className="bg-gradient-to-r from-[#0b1426] via-[#0f1d38] to-[#0b1426] border-b border-blue-500/20 py-1.5 px-4 text-center text-[11px] sm:text-xs text-slate-300 font-medium flex items-center justify-center gap-1.5 sm:gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse shrink-0" />
+      <aside aria-label="Pengumuman Prototipe Kalana Labs" className="bg-[#0b101c] border-b border-slate-800 py-1.5 px-4 text-center text-xs text-slate-300 font-medium flex items-center justify-center gap-1.5">
         <span>Prototipe website oleh</span>
         <a 
           href="https://kalanalabs.com" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="font-bold text-sky-300 hover:text-white underline decoration-sky-400/60 hover:decoration-white inline-flex items-center gap-1 transition-colors"
+          className="font-bold text-sky-400 hover:text-sky-300 underline decoration-sky-400/60 inline-flex items-center gap-1 transition-colors"
         >
           <span>Kalana Labs</span>
           <ExternalLink size={11} />
         </a>
       </aside>
 
-      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300 ${isScrolled ? 'py-2.5' : 'py-3.5'}`}>
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-200 ${isScrolled ? 'py-2.5' : 'py-3.5'}`}>
         {/* Brand Logo */}
         <Link 
           href="/" 
@@ -73,7 +72,7 @@ export const Navbar: React.FC = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1.5 lg:gap-2" aria-label="Navigasi Utama">
+        <nav className="hidden md:flex items-center gap-1 lg:gap-1.5" aria-label="Navigasi Utama">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
@@ -82,15 +81,13 @@ export const Navbar: React.FC = () => {
               <Link
                 key={item.id}
                 href={item.href}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs lg:text-sm font-semibold transition-all duration-200 ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs lg:text-sm font-semibold transition-colors ${
                   isActive
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/30 font-bold'
-                    : item.highlight
-                    ? 'text-sky-300 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30'
-                    : 'text-slate-300 hover:text-white hover:bg-[#111726]'
+                    ? 'bg-blue-600 text-white font-bold'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
                 }`}
               >
-                <Icon size={16} className={isActive ? 'text-white' : 'text-sky-400'} />
+                <Icon size={15} className={isActive ? 'text-white' : 'text-slate-400'} />
                 <span>{item.label}</span>
               </Link>
             );
@@ -101,10 +98,10 @@ export const Navbar: React.FC = () => {
             href={`https://wa.me/${PAYMENT_CONFIG.whatsappNumber}?text=Halo%20Admin%20Acursio,%20saya%20ingin%20tanya%20akun%20game`}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-2 flex items-center gap-2 bg-[#101726] hover:bg-[#162035] text-sky-400 hover:text-sky-300 border border-blue-500/30 px-3.5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all shadow-xs"
+            className="ml-2 flex items-center gap-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 px-3 py-2 rounded-lg text-xs font-semibold transition-colors"
           >
-            <Headphones size={15} />
-            <span>FAST CS</span>
+            <PhoneCall size={14} className="text-emerald-400" />
+            <span>Admin WA</span>
           </a>
         </nav>
 

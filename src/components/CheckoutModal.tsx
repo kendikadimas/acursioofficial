@@ -123,15 +123,15 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ account, onClose }
         <div className="rounded-2xl p-5 bg-gradient-to-b from-[#111728] to-[#090d16] border border-blue-500/35 mb-6 shadow-xl">
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-1 rounded bg-blue-600 text-white text-xs font-black tracking-wider uppercase shadow-xs">
+              <span className="px-2 py-0.5 rounded bg-blue-600 text-white text-xs font-bold tracking-wider uppercase">
                 QRIS
               </span>
               <span className="text-xs font-bold text-white">
                 ACURSIO OFFICIAL STORE
               </span>
             </div>
-            <span className="text-[11px] font-mono text-slate-400">
-              NMID: ID1020304050607
+            <span className="text-xs text-emerald-400 font-semibold">
+              Pembayaran Terverifikasi
             </span>
           </div>
 
