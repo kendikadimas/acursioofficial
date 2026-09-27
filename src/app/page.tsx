@@ -53,7 +53,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0b0c10] text-[#f3f4f6] relative selection:bg-orange-500 selection:text-white">
+    <main className="min-h-screen bg-[#06080d] text-[#f1f5f9] relative selection:bg-blue-600 selection:text-white">
       {/* Fixed Navbar */}
       <Navbar activeTab={activeTab} onNavigate={(tab) => setActiveTab(tab)} />
 

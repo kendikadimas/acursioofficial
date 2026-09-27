@@ -8,11 +8,8 @@ import {
   ShieldCheck, 
   Filter, 
   RotateCcw, 
-  Sparkles, 
   Search, 
-  Check, 
   Flame,
-  ArrowUpDown,
   ShoppingBag
 } from 'lucide-react';
 
@@ -27,7 +24,7 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
   onSelectAccount,
   onInstantBuy,
 }) => {
-  // Filter states matching Screenshot 1
+  // Filter states
   const [activeCategory, setActiveCategory] = useState<GameCategory | 'all'>(selectedCategory);
   const [minPrice, setMinPrice] = useState<string>('');
   const [maxPrice, setMaxPrice] = useState<string>('');
@@ -121,14 +118,14 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/40 text-orange-400 text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-500/35 text-sky-400 text-xs font-bold uppercase tracking-wider mb-2">
             <ShoppingBag size={14} />
             <span>Katalog Jubel Resmi</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
             Jual Beli Akun Game Acursio
           </h2>
-          <p className="mt-1 text-sm sm:text-base text-gray-400 font-medium">
+          <p className="mt-1 text-sm sm:text-base text-slate-400 font-medium">
             Koleksi akun sultan terverifikasi dengan garansi Anti Hack-Back 100% selamanya.
           </p>
         </div>
@@ -139,10 +136,10 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                 activeCategory === cat.id
-                  ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30'
-                  : 'bg-[#151726] text-gray-400 hover:text-white hover:bg-[#1f2238] border border-[#272b42]'
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/30'
+                  : 'bg-[#0d121d] text-slate-400 hover:text-white hover:bg-[#131b2c] border border-[#1b2538]'
               }`}
             >
               {cat.label}
@@ -151,19 +148,19 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
         </div>
       </div>
 
-      {/* Main Catalog Layout matching Screenshot 1 */}
+      {/* Main Catalog Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
         
-        {/* Left Filter Sidebar matching Screenshot 1 */}
-        <div className="lg:col-span-1 rounded-2xl p-5 bg-[#25150c] border-2 border-orange-600/50 shadow-xl shadow-black/60 sticky top-24">
-          <div className="flex items-center justify-between pb-3 mb-4 border-b border-orange-600/30">
+        {/* Left Filter Sidebar */}
+        <div className="lg:col-span-1 rounded-2xl p-5 bg-[#0c101a] border border-[#1e293b] shadow-xl shadow-black/50 sticky top-24">
+          <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#1b2333]">
             <h3 className="text-lg font-black text-white flex items-center gap-2 tracking-wide">
-              <Filter size={18} className="text-orange-500" />
+              <Filter size={18} className="text-blue-400" />
               <span>Filter</span>
             </h3>
             <button
               onClick={handleResetFilter}
-              className="text-xs text-orange-400 hover:text-orange-300 font-bold flex items-center gap-1 hover:underline"
+              className="text-xs text-sky-400 hover:text-sky-300 font-bold flex items-center gap-1 hover:underline"
               title="Reset semua filter"
             >
               <RotateCcw size={12} />
@@ -174,7 +171,7 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
           <div className="space-y-4">
             {/* Search input */}
             <div>
-              <label htmlFor="search-input" className="block text-xs font-bold text-gray-200 uppercase tracking-wider mb-1.5">
+              <label htmlFor="search-input" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                 Cari Kode / Skin
               </label>
               <div className="relative">
@@ -184,51 +181,51 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
                   placeholder="e.g. COI #0016, Badang..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#160d07] border border-orange-900/60 focus:border-orange-500 rounded-xl px-3.5 py-2 text-sm text-white placeholder-gray-500 transition-colors"
+                  className="w-full bg-[#07090f] border border-[#1a2336] focus:border-blue-500 rounded-xl px-3.5 py-2 text-sm text-white placeholder-slate-500 transition-colors"
                 />
-                <Search size={15} className="absolute right-3 top-2.5 text-gray-500" />
+                <Search size={15} className="absolute right-3 top-2.5 text-slate-500" />
               </div>
             </div>
 
             {/* Harga Minimal */}
             <div>
-              <label htmlFor="min-price" className="block text-xs font-bold text-gray-200 uppercase tracking-wider mb-1.5">
+              <label htmlFor="min-price" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                 Harga Minimal
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-2 text-xs font-bold text-orange-400">Rp</span>
+                <span className="absolute left-3.5 top-2 text-xs font-bold text-sky-400">Rp</span>
                 <input
                   id="min-price"
                   type="number"
                   placeholder="0"
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
-                  className="w-full bg-[#160d07] border border-orange-900/60 focus:border-orange-500 rounded-xl pl-10 pr-3 py-2 text-sm text-white placeholder-gray-500 transition-colors"
+                  className="w-full bg-[#07090f] border border-[#1a2336] focus:border-blue-500 rounded-xl pl-10 pr-3 py-2 text-sm text-white placeholder-slate-500 transition-colors"
                 />
               </div>
             </div>
 
             {/* Harga Maksimal */}
             <div>
-              <label htmlFor="max-price" className="block text-xs font-bold text-gray-200 uppercase tracking-wider mb-1.5">
+              <label htmlFor="max-price" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                 Harga Maksimal
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-2 text-xs font-bold text-orange-400">Rp</span>
+                <span className="absolute left-3.5 top-2 text-xs font-bold text-sky-400">Rp</span>
                 <input
                   id="max-price"
                   type="number"
                   placeholder="Contoh: 1.000.000"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
-                  className="w-full bg-[#160d07] border border-orange-900/60 focus:border-orange-500 rounded-xl pl-10 pr-3 py-2 text-sm text-white placeholder-gray-500 transition-colors"
+                  className="w-full bg-[#07090f] border border-[#1a2336] focus:border-blue-500 rounded-xl pl-10 pr-3 py-2 text-sm text-white placeholder-slate-500 transition-colors"
                 />
               </div>
             </div>
 
             {/* Winrate Minimal */}
             <div>
-              <label htmlFor="winrate-input" className="block text-xs font-bold text-gray-200 uppercase tracking-wider mb-1.5">
+              <label htmlFor="winrate-input" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                 Winrate Minimal (%)
               </label>
               <input
@@ -237,23 +234,23 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
                 placeholder="Contoh: 50"
                 value={minWinrate}
                 onChange={(e) => setMinWinrate(e.target.value)}
-                className="w-full bg-[#160d07] border border-orange-900/60 focus:border-orange-500 rounded-xl px-3.5 py-2 text-sm text-white placeholder-gray-500 transition-colors"
+                className="w-full bg-[#07090f] border border-[#1a2336] focus:border-blue-500 rounded-xl px-3.5 py-2 text-sm text-white placeholder-slate-500 transition-colors"
               />
             </div>
 
             {/* Pilih Skin Dropdown */}
             <div>
-              <label htmlFor="skin-select" className="block text-xs font-bold text-gray-200 uppercase tracking-wider mb-1.5">
+              <label htmlFor="skin-select" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                 Pilih Skin
               </label>
               <select
                 id="skin-select"
                 value={selectedSkin}
                 onChange={(e) => setSelectedSkin(e.target.value)}
-                className="w-full bg-[#160d07] border border-orange-900/60 focus:border-orange-500 rounded-xl px-3 py-2 text-sm text-white transition-colors"
+                className="w-full bg-[#07090f] border border-[#1a2336] focus:border-blue-500 rounded-xl px-3 py-2 text-sm text-white transition-colors"
               >
                 {AVAILABLE_SKINS_FILTER.map((skin) => (
-                  <option key={skin} value={skin} className="bg-[#160d07] text-white">
+                  <option key={skin} value={skin} className="bg-[#0c101a] text-white">
                     {skin}
                   </option>
                 ))}
@@ -262,39 +259,39 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
 
             {/* Urutkan / Sort */}
             <div>
-              <label htmlFor="sort-select" className="block text-xs font-bold text-gray-200 uppercase tracking-wider mb-1.5">
+              <label htmlFor="sort-select" className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                 Urutkan Berdasarkan
               </label>
               <select
                 id="sort-select"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="w-full bg-[#160d07] border border-orange-900/60 focus:border-orange-500 rounded-xl px-3 py-2 text-sm text-white transition-colors"
+                className="w-full bg-[#07090f] border border-[#1a2336] focus:border-blue-500 rounded-xl px-3 py-2 text-sm text-white transition-colors"
               >
-                <option value="default" className="bg-[#160d07] text-white">Rekomendasi Acursio</option>
-                <option value="price-asc" className="bg-[#160d07] text-white">Harga Termurah</option>
-                <option value="price-desc" className="bg-[#160d07] text-white">Harga Tertinggi</option>
-                <option value="winrate-desc" className="bg-[#160d07] text-white">Winrate Tertinggi</option>
+                <option value="default" className="bg-[#0c101a] text-white">Rekomendasi Acursio</option>
+                <option value="price-asc" className="bg-[#0c101a] text-white">Harga Termurah</option>
+                <option value="price-desc" className="bg-[#0c101a] text-white">Harga Tertinggi</option>
+                <option value="winrate-desc" className="bg-[#0c101a] text-white">Winrate Tertinggi</option>
               </select>
             </div>
 
-            {/* Tombol Filter Orange matching Screenshot 1 */}
+            {/* Tombol Filter Sapphire */}
             <button
               onClick={() => {}}
-              className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-[#ff5500] to-[#ea580c] hover:from-[#ff6611] hover:to-[#f97316] text-white font-black text-sm tracking-wider uppercase shadow-lg shadow-orange-600/40 transition-all transform active:scale-95"
+              className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-sm tracking-wider uppercase shadow-md shadow-blue-600/30 transition-all transform active:scale-98"
             >
               Filter ({filteredAccounts.length} Akun)
             </button>
           </div>
         </div>
 
-        {/* Right Accounts Grid matching Screenshot 1 */}
+        {/* Right Accounts Grid */}
         <div className="lg:col-span-3">
           
           {/* Header count info */}
           <div className="flex items-center justify-between mb-4 px-1">
-            <span className="text-sm font-bold text-gray-400">
-              Menampilkan <span className="text-orange-400 font-extrabold">{filteredAccounts.length}</span> akun game siap beli
+            <span className="text-sm font-bold text-slate-400">
+              Menampilkan <span className="text-sky-400 font-extrabold">{filteredAccounts.length}</span> akun game siap beli
             </span>
             <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
               <ShieldCheck size={14} />
@@ -304,104 +301,104 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
 
           {/* Empty State */}
           {filteredAccounts.length === 0 ? (
-            <div className="rounded-2xl p-12 bg-[#121420] border border-[#23263b] text-center flex flex-col items-center justify-center">
-              <div className="w-16 h-16 rounded-full bg-orange-500/10 text-orange-400 flex items-center justify-center mb-4">
+            <div className="rounded-2xl p-12 bg-[#0c101a] border border-[#1e293b] text-center flex flex-col items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4">
                 <Search size={32} />
               </div>
               <h3 className="text-lg font-bold text-white mb-1">
                 Tidak ada akun yang sesuai kriteria filter
               </h3>
-              <p className="text-sm text-gray-400 max-w-md mb-6">
+              <p className="text-sm text-slate-400 max-w-md mb-6">
                 Coba ubah harga minimal, maksimal, atau pilih opsi "Semua Game" untuk melihat koleksi lainnya.
               </p>
               <button
                 onClick={handleResetFilter}
-                className="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm transition-all"
+                className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shadow-md shadow-blue-600/30"
               >
                 Reset Semua Filter
               </button>
             </div>
           ) : (
-            /* Product Grid matching Screenshot 1 */
+            /* Product Grid */
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
               {filteredAccounts.map((acc) => (
                 <div
                   key={acc.id}
-                  className="group rounded-2xl overflow-hidden bg-[#131522] border-2 border-[#222538] hover:border-orange-500 transition-all duration-300 flex flex-col justify-between shadow-xl hover:shadow-orange-600/20"
+                  className="group rounded-2xl overflow-hidden bg-[#0c101a] border border-[#1c2538] hover:border-blue-500/80 transition-all duration-300 flex flex-col justify-between shadow-xl hover:shadow-blue-600/15"
                 >
                   {/* Card Visual Header */}
-                  <div className="relative w-full bg-gradient-to-b from-[#1d2030] to-[#0e1018] p-4 flex flex-col justify-between min-h-[220px]">
+                  <div className="relative w-full bg-gradient-to-b from-[#121929] to-[#070a12] p-4 flex flex-col justify-between min-h-[220px]">
                     
-                    {/* Top Badge: ANTI HACK BACK in Red with shield icon matching Screenshot 1 */}
+                    {/* Top Badge: ANTI HACK BACK in Red with shield icon */}
                     <div className="flex items-center justify-between z-10">
-                      <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-red-600 text-white text-[11px] font-black uppercase tracking-wider shadow-sm">
+                      <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-red-600/90 text-white text-[11px] font-black uppercase tracking-wider shadow-sm">
                         <ShieldCheck size={13} className="text-white" />
                         <span>ANTI HACK BACK</span>
                       </div>
 
-                      <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider bg-black/60 px-2 py-0.5 rounded">
+                      <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider bg-black/60 px-2 py-0.5 rounded border border-white/10">
                         {acc.gameTitle}
                       </span>
                     </div>
 
-                    {/* Middle Graphic Spec Box matching Screenshot 1 */}
-                    <div className="my-3 p-3 rounded-xl bg-black/70 border border-orange-500/20 backdrop-blur-xs flex flex-col items-center justify-center text-center">
-                      <div className="text-xs font-black text-amber-400 uppercase tracking-widest mb-1 flex items-center gap-1">
-                        <Flame size={12} className="text-orange-500" />
+                    {/* Middle Graphic Spec Box */}
+                    <div className="my-3 p-3 rounded-xl bg-black/75 border border-blue-500/20 backdrop-blur-xs flex flex-col items-center justify-center text-center">
+                      <div className="text-xs font-black text-amber-300 uppercase tracking-widest mb-1 flex items-center gap-1">
+                        <Flame size={12} className="text-blue-400" />
                         <span>{acc.specs.rank}</span>
                       </div>
 
-                      {/* Highlighted specs pills matching Screenshot 1: 127 skins, 278 matches, 51% winrate, MAX emblems */}
+                      {/* Highlighted specs pills */}
                       <div className="grid grid-cols-4 gap-1.5 w-full mt-2 pt-2 border-t border-white/10 text-center">
                         <div>
                           <div className="text-xs font-black text-white">{acc.specs.totalSkins || '-'}</div>
-                          <div className="text-[9px] text-gray-400 font-bold uppercase">Skins</div>
+                          <div className="text-[9px] text-slate-400 font-bold uppercase">Skins</div>
                         </div>
                         <div>
                           <div className="text-xs font-black text-white">{acc.specs.matches || '-'}</div>
-                          <div className="text-[9px] text-gray-400 font-bold uppercase">Match</div>
+                          <div className="text-[9px] text-slate-400 font-bold uppercase">Match</div>
                         </div>
                         <div>
-                          <div className="text-xs font-black text-amber-400">
+                          <div className="text-xs font-black text-sky-400">
                             {acc.specs.winrate ? `${acc.specs.winrate}%` : '-'}
                           </div>
-                          <div className="text-[9px] text-gray-400 font-bold uppercase">WR</div>
+                          <div className="text-[9px] text-slate-400 font-bold uppercase">WR</div>
                         </div>
                         <div>
                           <div className="text-xs font-black text-emerald-400">{acc.specs.emblemStatus || 'FULL'}</div>
-                          <div className="text-[9px] text-gray-400 font-bold uppercase">Emblem</div>
+                          <div className="text-[9px] text-slate-400 font-bold uppercase">Emblem</div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Price banner inside card header matching Screenshot 1 */}
-                    <div className="bg-gradient-to-r from-orange-600/90 to-amber-600/90 rounded-lg p-2 flex items-center justify-between text-white">
+                    {/* Price banner inside card header */}
+                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-2.5 flex items-center justify-between text-white shadow-xs">
                       <div>
                         <div className="text-sm sm:text-base font-black tracking-tight">
                           {formatRupiah(acc.price)}
                         </div>
                         {acc.originalPrice && (
-                          <div className="text-[10px] text-white/70 line-through -mt-0.5">
+                          <div className="text-[10px] text-blue-200 line-through -mt-0.5">
                             {formatRupiah(acc.originalPrice)}
                           </div>
                         )}
                       </div>
                       {acc.myrPrice && (
-                        <div className="text-xs font-black bg-black/40 px-2 py-0.5 rounded text-amber-200">
+                        <div className="text-xs font-black bg-black/35 px-2 py-0.5 rounded text-amber-200">
                           {acc.myrPrice} RM
                         </div>
                       )}
                     </div>
                   </div>
 
-                  {/* Card Body matching Screenshot 1 */}
-                  <div className="p-4 flex flex-col justify-between flex-1 bg-[#131522]">
-                    {/* Tags matching Screenshot 1: #badang (collector) #lunox (legend) & +12 lainnya */}
+                  {/* Card Body */}
+                  <div className="p-4 flex flex-col justify-between flex-1 bg-[#0c101a]">
+                    {/* Tags */}
                     <div className="flex flex-wrap gap-1.5 mb-2.5">
                       {acc.tags.map((tag, tIdx) => (
                         <span
                           key={tIdx}
-                          className="text-[11px] font-bold text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded-md border border-orange-500/20"
+                          className="text-[11px] font-bold text-sky-300 bg-sky-500/10 px-2 py-0.5 rounded-md border border-sky-500/20"
                         >
                           {tag}
                         </span>
@@ -410,26 +407,26 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
 
                     {/* Code & Title */}
                     <div>
-                      <div className="text-xs font-mono font-black text-gray-400 uppercase tracking-wider">
+                      <div className="text-xs font-mono font-black text-slate-400 uppercase tracking-wider">
                         {acc.code}
                       </div>
-                      <h4 className="text-sm font-bold text-white line-clamp-2 mt-0.5 hover:text-orange-400 transition-colors">
+                      <h4 className="text-sm font-bold text-white line-clamp-2 mt-0.5 hover:text-sky-400 transition-colors">
                         {acc.title}
                       </h4>
                     </div>
 
                     {/* Price and Action Buttons */}
-                    <div className="mt-4 pt-3 border-t border-[#23263b] flex items-center gap-2">
+                    <div className="mt-4 pt-3 border-t border-[#1a2234] flex items-center gap-2">
                       <button
                         onClick={() => onSelectAccount(acc)}
-                        className="flex-1 py-2 px-3 rounded-xl bg-[#1e2235] hover:bg-[#282d46] text-gray-200 hover:text-white font-bold text-xs transition-colors border border-[#2b304a]"
+                        className="flex-1 py-2 px-3 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-slate-300 hover:text-white font-bold text-xs transition-colors border border-[#1f2b42]"
                       >
                         Detail Akun
                       </button>
 
                       <button
                         onClick={() => onInstantBuy(acc)}
-                        className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-xs transition-all shadow-md shadow-orange-600/30 text-center"
+                        className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs transition-all shadow-md shadow-blue-600/30 text-center"
                       >
                         Beli Akun
                       </button>

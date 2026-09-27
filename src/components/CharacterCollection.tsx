@@ -34,8 +34,7 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
       title: 'PUBG Mobile',
       subtitle: 'Tencent',
       badge: 'PUBGM',
-      // Stylized fallback visual
-      customColor: 'from-amber-600/30 to-yellow-900/40',
+      customColor: 'from-blue-600/25 to-slate-900/40',
       iconChar: '👑',
       charName: 'Pharaoh X-Suit',
     },
@@ -44,7 +43,7 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
       title: 'Genshin Impact',
       subtitle: 'Mihoyo',
       badge: 'GENSHIN',
-      customColor: 'from-pink-600/30 to-purple-900/40',
+      customColor: 'from-sky-600/25 to-indigo-950/40',
       iconChar: '🌸',
       charName: 'Yae Miko Shrine',
     },
@@ -53,7 +52,7 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
       title: 'E-Football 2026',
       subtitle: 'Konami',
       badge: 'E-FOOTBALL',
-      customColor: 'from-blue-600/30 to-emerald-900/40',
+      customColor: 'from-cyan-600/25 to-blue-950/40',
       iconChar: '⚽',
       charName: 'Lionel Messi BigTime',
     },
@@ -65,14 +64,14 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
       <div className="mb-6 sm:mb-8">
         <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
           <span>Jelajahi Koleksi Akun</span>
-          <Sparkles size={20} className="text-orange-500 animate-spin" />
+          <Sparkles size={20} className="text-blue-400 animate-spin" />
         </h2>
-        <p className="mt-1 text-sm sm:text-base text-gray-400 font-medium max-w-3xl">
-          Solusi lengkap untuk jual beli akun aman dan jasa joki profesional dalam satu tempat.
+        <p className="mt-1 text-sm sm:text-base text-slate-400 font-medium max-w-3xl">
+          Solusi terpercaya jual beli akun game sultan dan akun terawat dalam satu tempat.
         </p>
       </div>
 
-      {/* 5 Cards Row matching Screenshot 5 */}
+      {/* 5 Cards Row */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-5">
         {characters.map((item) => {
           const isSelected = activeCategory === item.category;
@@ -91,16 +90,16 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
               role="button"
               className={`group relative rounded-2xl overflow-hidden border transition-all duration-300 transform hover:-translate-y-2 cursor-pointer flex flex-col h-[280px] sm:h-[340px] ${
                 isSelected
-                  ? 'border-orange-500 shadow-xl shadow-orange-600/30 ring-2 ring-orange-500/50'
-                  : 'border-[#26293d] hover:border-orange-500/70 bg-[#12141f]'
+                  ? 'border-blue-500 shadow-xl shadow-blue-600/25 ring-2 ring-blue-500/40'
+                  : 'border-[#1b2336] hover:border-blue-500/70 bg-[#0c101a]'
               }`}
             >
-              {/* Card visual body with circular flame ring */}
-              <div className="relative w-full h-full overflow-hidden bg-gradient-to-b from-[#1b1c28] via-[#10121b] to-[#0a0b10] flex items-center justify-center">
+              {/* Card visual body with circular sapphire aura */}
+              <div className="relative w-full h-full overflow-hidden bg-gradient-to-b from-[#101726] via-[#090d16] to-[#04060a] flex items-center justify-center">
                 
-                {/* Fiery circular aura backdrop */}
+                {/* Glowing circular sapphire aura backdrop */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full border-4 border-orange-500/80 shadow-[0_0_40px_rgba(255,85,0,0.85)] opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all duration-500 flame-aura-ring" />
+                  <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full border-4 border-blue-500/70 shadow-[0_0_35px_rgba(59,130,246,0.6)] opacity-70 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500 sapphire-aura-ring" />
                 </div>
 
                 {/* Character Image if available */}
@@ -117,10 +116,10 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
                 ) : (
                   /* Stylized game character art card */
                   <div className={`relative z-10 w-full h-full flex flex-col items-center justify-center p-4 bg-gradient-to-t ${item.customColor}`}>
-                    <div className="text-5xl sm:text-6xl mb-2 filter drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] group-hover:scale-110 transition-transform">
+                    <div className="text-5xl sm:text-6xl mb-2 filter drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] group-hover:scale-110 transition-transform">
                       {item.iconChar}
                     </div>
-                    <span className="text-xs sm:text-sm font-black text-amber-300 text-center tracking-wide px-2 py-1 rounded bg-black/60 border border-orange-500/30">
+                    <span className="text-xs sm:text-sm font-black text-sky-200 text-center tracking-wide px-2 py-1 rounded bg-black/70 border border-blue-500/30">
                       {item.charName}
                     </span>
                   </div>
@@ -128,17 +127,17 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
 
                 {/* Top Game Badge */}
                 <div className="absolute top-2.5 left-2.5 z-20">
-                  <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-black/80 text-orange-400 border border-orange-500/40 backdrop-blur-xs">
+                  <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-black/80 text-sky-400 border border-blue-500/40 backdrop-blur-xs">
                     {item.badge}
                   </span>
                 </div>
 
                 {/* Bottom Shadow Gradient & Game Label */}
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-3 sm:p-4 text-center z-20">
-                  <h3 className="text-sm sm:text-base font-black text-white group-hover:text-orange-400 transition-colors">
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/85 to-transparent p-3 sm:p-4 text-center z-20">
+                  <h3 className="text-sm sm:text-base font-black text-white group-hover:text-sky-400 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">
+                  <p className="text-[11px] text-slate-400 font-semibold uppercase tracking-wider">
                     {item.subtitle}
                   </p>
                 </div>
