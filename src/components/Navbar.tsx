@@ -13,7 +13,8 @@ import {
   PhoneCall, 
   Menu, 
   X, 
-  Headphones
+  Headphones,
+  ExternalLink
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -41,11 +42,28 @@ export const Navbar: React.FC = () => {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-[#06080d]/95 backdrop-blur-md border-b border-[#1b2333] shadow-xl shadow-black/50 py-2.5' 
-          : 'bg-[#080b12] border-b border-[#161c28] py-3.5'
+          ? 'bg-[#06080d]/95 backdrop-blur-md border-b border-[#1b2333] shadow-xl shadow-black/50' 
+          : 'bg-[#080b12] border-b border-[#161c28]'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      {/* Kalana Labs Prototype Notice Bar */}
+      <aside aria-label="Pengumuman Prototipe Kalana Labs" className="bg-gradient-to-r from-[#0b1426] via-[#0f1d38] to-[#0b1426] border-b border-blue-500/20 py-1.5 px-4 text-center text-[11px] sm:text-xs text-slate-300 font-medium flex items-center justify-center gap-1.5 sm:gap-2">
+        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse shrink-0" />
+        <span>Prototipe website oleh</span>
+        <a 
+          href="https://kalanalabs.com" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="font-bold text-sky-300 hover:text-white underline decoration-sky-400/60 hover:decoration-white inline-flex items-center gap-1 transition-colors"
+        >
+          <span>Kalana Labs</span>
+          <ExternalLink size={11} />
+        </a>
+        <span className="hidden sm:inline text-slate-500">•</span>
+        <span className="hidden sm:inline text-slate-400 text-[11px]">Eksplorasi Konsep Jual Beli Akun Game</span>
+      </aside>
+
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300 ${isScrolled ? 'py-2.5' : 'py-3.5'}`}>
         {/* Brand Logo */}
         <Link 
           href="/" 

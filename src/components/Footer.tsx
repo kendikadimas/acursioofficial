@@ -9,7 +9,8 @@ import {
   PhoneCall, 
   Clock, 
   CheckCircle2, 
-  QrCode
+  QrCode,
+  ExternalLink
 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -159,13 +160,27 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Disclaimer & Copyright */}
-        <div className="mt-12 pt-6 border-t border-[#141a28] text-center text-xs text-slate-500 space-y-2 font-medium">
+        <div className="mt-12 pt-6 border-t border-[#141a28] text-center text-xs text-slate-500 space-y-3 font-medium">
           <p>
             Disclaimer: Acursio Official adalah penyedia layanan pihak ketiga yang independen. Seluruh hak cipta aset grafis, judul game, dan merek dagang adalah properti dari masing-masing pemegang hak resmi (Moonton, Garena, Tencent, Mihoyo, Konami).
           </p>
           <p className="text-slate-400">
             &copy; {new Date().getFullYear()} Acursio Official (acursio.id). Hak cipta dilindungi undang-undang.
           </p>
+
+          {/* Kalana Labs Prototype Notice */}
+          <div className="pt-2 flex items-center justify-center gap-1.5 text-xs text-slate-400">
+            <span>Prototipe website & desain UI/UX dikembangkan oleh</span>
+            <a 
+              href="https://kalanalabs.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="font-bold text-sky-400 hover:text-sky-300 underline decoration-sky-400/50 hover:decoration-sky-300 inline-flex items-center gap-1 transition-colors"
+            >
+              <span>Kalana Labs</span>
+              <ExternalLink size={12} />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
