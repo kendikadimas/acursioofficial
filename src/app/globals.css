@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-main: #0b0c10;
+    --bg-card: #13151f;
+    --bg-card-hover: #191c2b;
+    --bg-input: #1a1c29;
+    --border-color: #272a3d;
+    --brand-orange: #ff5500;
+    --brand-orange-light: #ff7728;
+    --brand-gold: #f59e0b;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: #f3f4f6;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0b0c10;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2e42;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ff5500;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Antislop Accessible Focus */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid #ff7728 !important;
+  outline-offset: 2px !important;
+}
+
+/* Animations & Gamer Glows */
+@keyframes flamePulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 15px rgba(255, 85, 0, 0.6));
+  }
+  50% {
+    transform: scale(1.05) rotate(180deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 25px rgba(251, 146, 60, 0.9));
+  }
+}
+
+.flame-aura-ring {
+  animation: flamePulse 8s linear infinite;
+}
+
+.acursio-card-glow {
+  transition: all 0.3s ease;
+}
+
+.acursio-card-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(255, 85, 0, 0.25);
+  border-color: #ff5500;
 }
