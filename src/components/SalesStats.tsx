@@ -1,73 +1,82 @@
 'use client';
 
 import React from 'react';
-import { SALES_STATS } from '@/data/stats';
-import { ShieldCheck, Award } from 'lucide-react';
+import { ShieldCheck, Lock, QrCode, Clock } from 'lucide-react';
 
 export const SalesStats: React.FC = () => {
+  const guaranteePillars = [
+    {
+      icon: ShieldCheck,
+      title: 'Garansi 100% Anti Hack-Back',
+      description: 'Perlindungan resmi dari upaya penarikan kembali. Garansi akun pengganti setara atau pengembalian dana 100%.',
+      tag: 'GARANSI PENUH',
+      accent: 'border-blue-500/40 text-blue-400 bg-blue-500/10',
+    },
+    {
+      icon: Lock,
+      title: 'Verifikasi Data & Bind Bersih',
+      description: 'Pengecekan teliti seluruh riwayat akun: email pertama, Moonton bind, Google Play, dan login pihak ketiga bebas masalah.',
+      tag: 'TERVERIFIKASI',
+      accent: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10',
+    },
+    {
+      icon: QrCode,
+      title: 'QRIS All Payment Resmi',
+      description: 'Proses pembayaran instan tanpa ribet. Mendukung seluruh m-Banking (BCA, Mandiri, BRI, BNI) dan E-Wallet (GoPay, DANA, OVO).',
+      tag: 'INSTAN',
+      accent: 'border-sky-500/40 text-sky-400 bg-sky-500/10',
+    },
+    {
+      icon: Clock,
+      title: 'Serah Terima 5-15 Menit',
+      description: 'Admin memandu proses penggantian email dan kata sandi secara langsung via WhatsApp resmi hingga akun 100% aman.',
+      tag: 'KILAT',
+      accent: 'border-indigo-500/40 text-indigo-400 bg-indigo-500/10',
+    },
+  ];
+
   return (
-    <section id="statistik" className="py-8 sm:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="jaminan" className="py-8 sm:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="mb-6 sm:mb-8">
-        <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
-          <span>Statistik Penjualan</span>
-          <Award size={22} className="text-blue-400" />
+      <div className="mb-6 sm:mb-8 text-center max-w-3xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-outfit">
+          Jaminan Transaksi & Keamanan Akun
         </h2>
         <p className="mt-1 text-sm sm:text-base text-slate-400 font-medium">
-          {SALES_STATS.subtitle}
+          Setiap pembelian akun game di Acursio dilindungi protokol verifikasi resmi untuk menjamin keamanan pembeli.
         </p>
       </div>
 
-      {/* Main Sapphire Hero Card */}
-      <div className="relative rounded-2xl sm:rounded-3xl p-8 sm:p-14 bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 border border-blue-400/30 shadow-2xl shadow-blue-900/30 overflow-hidden text-center flex flex-col items-center justify-center">
-        {/* Decorative background glow accents */}
-        <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-sky-400/15 blur-2xl pointer-events-none" />
-        <div className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-indigo-950/40 blur-2xl pointer-events-none" />
+      {/* 4 Honest Trust Pillars */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        {guaranteePillars.map((item, idx) => {
+          const Icon = item.icon;
+          return (
+            <div
+              key={idx}
+              className="rounded-2xl p-5 sm:p-6 bg-[#0c101a] border border-[#1b2336] hover:border-blue-500/60 transition-all duration-300 flex flex-col justify-between shadow-md"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-500/30 text-sky-400 flex items-center justify-center">
+                    <Icon size={24} />
+                  </div>
+                  <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md border font-mono ${item.accent}`}>
+                    {item.tag}
+                  </span>
+                </div>
 
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/30 border border-white/15 text-white text-xs sm:text-sm font-extrabold uppercase tracking-widest mb-3 backdrop-blur-xs">
-          <ShieldCheck size={16} className="text-sky-300" />
-          <span>TRANSAKSI SUKSES & TERPERCAYA</span>
-        </div>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-2 font-outfit leading-snug">
+                  {item.title}
+                </h3>
 
-        <h3 className="text-sm sm:text-lg lg:text-xl font-black text-blue-100 uppercase tracking-widest">
-          TOTAL AKUN TERJUAL
-        </h3>
-
-        <div className="text-4xl sm:text-7xl lg:text-8xl font-black text-white tracking-tight drop-shadow-lg my-2 font-mono">
-          {SALES_STATS.totalSoldDisplay}
-        </div>
-
-        <p className="text-xs sm:text-sm text-blue-100 font-semibold max-w-md">
-          Melayani ribuan gamers Indonesia dengan kepuasan pelanggan 99.8% dan jaminan Anti Hack-Back.
-        </p>
-      </div>
-
-      {/* Breakdown 5 Cards */}
-      <div className="mt-4 sm:mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-        {SALES_STATS.categories.map((cat) => (
-          <div
-            key={cat.id}
-            className="rounded-xl sm:rounded-2xl p-4 sm:p-5 bg-[#0c101a] border border-[#1b2336] hover:border-blue-500/60 transition-all duration-300 flex flex-col justify-between shadow-md"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <span
-                className="w-2.5 h-2.5 rounded-full shadow-xs"
-                style={{ backgroundColor: cat.colorDot }}
-              />
-              <span className="text-xs sm:text-sm font-bold text-slate-300 truncate">
-                {cat.gameName}
-              </span>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium">
+                  {item.description}
+                </p>
+              </div>
             </div>
-
-            <div className="text-xl sm:text-3xl font-black text-white font-mono tracking-tight">
-              {cat.countDisplay}
-            </div>
-
-            <div className="mt-1 text-[11px] text-slate-500 font-semibold">
-              Akun Terverifikasi
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

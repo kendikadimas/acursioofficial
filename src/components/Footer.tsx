@@ -53,8 +53,8 @@ export const Footer: React.FC = () => {
                 <CheckCircle2 size={20} />
               </div>
               <div>
-                <div className="text-xs sm:text-sm font-bold text-white">30.207+ Akun Terjual</div>
-                <div className="text-[11px] text-slate-400">Reputasi terbukti amanah dan terpercaya</div>
+                <div className="text-xs sm:text-sm font-bold text-white">Akun Terverifikasi & Aman</div>
+                <div className="text-[11px] text-slate-400">Data bind lengkap dan bergaransi resmi</div>
               </div>
             </div>
           </div>
@@ -71,14 +71,13 @@ export const Footer: React.FC = () => {
               Acursio adalah platform marketplace jual beli akun game terpercaya di Indonesia. Kami menyediakan akun sultan bergaransi resmi dengan perlindungan 100% Anti Hack-Back.
             </p>
             <div className="flex items-center gap-2 text-xs text-sky-400 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Layanan Pelanggan: 24 Jam Nonstop</span>
+              <span>Layanan Pelanggan WhatsApp Aktif</span>
             </div>
           </div>
 
           {/* Produk & Layanan Game */}
           <div>
-            <h4 className="text-xs font-black text-white uppercase tracking-wider mb-4 border-l-2 border-blue-500 pl-2">
+            <h4 className="text-xs font-extrabold text-white uppercase tracking-wider mb-4 font-outfit">
               Katalog Game
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm font-medium">
@@ -112,7 +111,7 @@ export const Footer: React.FC = () => {
 
           {/* Jalur Transaksi QRIS */}
           <div>
-            <h4 className="text-xs font-black text-white uppercase tracking-wider mb-4 border-l-2 border-blue-500 pl-2">
+            <h4 className="text-xs font-extrabold text-white uppercase tracking-wider mb-4 font-outfit">
               Sistem Pembayaran
             </h4>
             <div className="p-3.5 rounded-2xl bg-[#0a0e17] border border-[#1b2336] space-y-2.5">
@@ -131,7 +130,7 @@ export const Footer: React.FC = () => {
 
           {/* Bantuan & Kontak Admin */}
           <div>
-            <h4 className="text-xs font-black text-white uppercase tracking-wider mb-4 border-l-2 border-blue-500 pl-2">
+            <h4 className="text-xs font-extrabold text-white uppercase tracking-wider mb-4 font-outfit">
               Hubungi Admin
             </h4>
             <p className="text-xs text-slate-400 mb-3">

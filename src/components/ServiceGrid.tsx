@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { GAME_SERVICES, GameService } from '@/data/services';
-import { ArrowRight, Gamepad2 } from 'lucide-react';
+import { Gamepad2 } from 'lucide-react';
 
 interface ServiceGridProps {
   onSelectService: (service: GameService) => void;
@@ -13,9 +13,8 @@ export const ServiceGrid: React.FC<ServiceGridProps> = ({ onSelectService }) => 
     <section id="layanan" className="py-8 sm:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header */}
       <div className="mb-6 sm:mb-8">
-        <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
-          <span>Pilihan Game Jual Beli Akun</span>
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-outfit">
+          Pilihan Game Jual Beli Akun
         </h2>
         <p className="mt-1 text-sm sm:text-base text-slate-400 max-w-2xl font-medium">
           Menyediakan ekosistem transaksi jual beli akun game yang aman dengan jaminan Anti Hack-Back 100%.
@@ -40,11 +39,9 @@ export const ServiceGrid: React.FC<ServiceGridProps> = ({ onSelectService }) => 
           >
             {/* Card Banner Area */}
             <div className="relative h-32 w-full overflow-hidden bg-gradient-to-br from-[#121929] to-[#080b12] flex items-center justify-center p-3.5">
-              <div className="absolute inset-0 bg-radial from-blue-500/10 via-transparent to-transparent opacity-50" />
-              
               <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 z-10">
                 {item.badgeText && (
-                  <span className="px-2 py-0.5 rounded-md text-[9px] font-extrabold uppercase tracking-wider bg-blue-600/90 text-white shadow-xs">
+                  <span className="px-2 py-0.5 rounded-md text-[9px] font-extrabold uppercase tracking-wider bg-blue-600/90 text-white shadow-xs font-mono">
                     {item.badgeText}
                   </span>
                 )}
@@ -63,12 +60,11 @@ export const ServiceGrid: React.FC<ServiceGridProps> = ({ onSelectService }) => 
 
             {/* Bottom Blue Strip */}
             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-3.5 py-2.5 flex items-center justify-between transition-colors">
-              <span className="text-white font-black text-xs sm:text-sm tracking-wide truncate pr-1">
+              <span className="text-white font-black text-xs sm:text-sm tracking-wide truncate pr-1 font-outfit">
                 {item.name}
               </span>
-              <span className="text-sky-100 text-[11px] font-bold tracking-wider uppercase shrink-0 flex items-center gap-0.5">
+              <span className="text-sky-100 text-[11px] font-bold tracking-wider uppercase shrink-0">
                 {item.publisher}
-                <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
               </span>
             </div>
           </div>

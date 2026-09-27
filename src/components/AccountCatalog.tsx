@@ -6,15 +6,14 @@ import { GAME_ACCOUNTS, AVAILABLE_SKINS_FILTER } from '@/data/accounts';
 import { formatRupiah } from '@/data/payment';
 import { 
   ShieldCheck, 
+  Filter, 
   RotateCcw, 
   Search, 
+  Flame, 
   ShoppingBag,
-  SlidersHorizontal,
-  ChevronDown,
-  Sparkles,
   ArrowRight,
-  Flame,
-  Check
+  Sparkles,
+  Award
 } from 'lucide-react';
 
 interface AccountCatalogProps {
@@ -29,12 +28,12 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
   onInstantBuy,
 }) => {
   const [activeCategory, setActiveCategory] = useState<GameCategory | 'all'>(selectedCategory);
-  const [priceRange, setPriceRange] = useState<string>('all');
-  const [minWinrate, setMinWinrate] = useState<string>('all');
+  const [minPrice, setMinPrice] = useState<string>('');
+  const [maxPrice, setMaxPrice] = useState<string>('');
+  const [minWinrate, setMinWinrate] = useState<string>('');
   const [selectedSkin, setSelectedSkin] = useState<string>('Semua Skin');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc' | 'winrate-desc'>('default');
-  const [showAdvancedFilter, setShowAdvancedFilter] = useState<boolean>(false);
 
   // Sync category if parent updates
   React.useEffect(() => {
@@ -51,8 +50,9 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
   ];
 
   const handleResetFilter = () => {
-    setPriceRange('all');
-    setMinWinrate('all');
+    setMinPrice('');
+    setMaxPrice('');
+    setMinWinrate('');
     setSelectedSkin('Semua Skin');
     setSearchQuery('');
     setSortBy('default');
@@ -67,21 +67,19 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
         return false;
       }
 
-      // Price range filter
-      if (priceRange === 'under-300') {
-        if (acc.price >= 300000) return false;
-      } else if (priceRange === '300-600') {
-        if (acc.price < 300000 || acc.price > 600000) return false;
-      } else if (priceRange === '600-1000') {
-        if (acc.price < 600000 || acc.price > 1000000) return false;
-      } else if (priceRange === 'above-1000') {
-        if (acc.price <= 1000000) return false;
+      // Min Price
+      if (minPrice && !isNaN(Number(minPrice)) && acc.price < Number(minPrice)) {
+        return false;
       }
 
-      // Winrate filter
-      if (minWinrate !== 'all') {
-        const wrNum = Number(minWinrate);
-        if (!acc.specs.winrate || acc.specs.winrate < wrNum) {
+      // Max Price
+      if (maxPrice && !isNaN(Number(maxPrice)) && acc.price > Number(maxPrice)) {
+        return false;
+      }
+
+      // Min Winrate
+      if (minWinrate && !isNaN(Number(minWinrate))) {
+        if (!acc.specs.winrate || acc.specs.winrate < Number(minWinrate)) {
           return false;
         }
       }
@@ -115,321 +113,367 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
       if (sortBy === 'winrate-desc') return (b.specs.winrate || 0) - (a.specs.winrate || 0);
       return 0; // default
     });
-  }, [activeCategory, priceRange, minWinrate, selectedSkin, searchQuery, sortBy]);
+  }, [activeCategory, minPrice, maxPrice, minWinrate, selectedSkin, searchQuery, sortBy]);
+
+  // Quick top row accounts (matching Screenshot 1: LOTM #13045, LOTM #13031, COI #0017)
+  const quickAccounts = useMemo(() => {
+    return GAME_ACCOUNTS.slice(3, 6);
+  }, []);
 
   return (
     <section id="jubel" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Section Header with generous breathing room */}
-      <div className="text-center max-w-3xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-sky-400 text-xs font-bold uppercase tracking-wider mb-3">
-          <ShoppingBag size={14} />
-          <span>Katalog Akun Terverifikasi</span>
+      {/* Section Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight font-outfit">
+            Jual Beli Akun Game Acursio
+          </h2>
+          <p className="mt-1 text-sm sm:text-base text-slate-400 font-medium">
+            Koleksi akun sultan terverifikasi dengan garansi Anti Hack-Back 100% selamanya.
+          </p>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-          Koleksi Akun Game Sultan
-        </h2>
-        <p className="mt-2 text-sm sm:text-base text-slate-400 font-medium">
-          Seluruh akun siap pakai dengan garansi resmi 100% Anti Hack-Back dan perlindungan transaksi penuh.
-        </p>
-      </div>
 
-      {/* Category Tabs: Clean, Spacious, Horizontal Scroll */}
-      <div className="mb-6 overflow-x-auto pb-2 scrollbar-none">
-        <div className="flex items-center justify-start sm:justify-center gap-2 min-w-max px-1">
-          {categoriesList.map((cat) => {
-            const isSelected = activeCategory === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
-                  isSelected
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
-                    : 'bg-[#0c101a] text-slate-300 hover:text-white hover:bg-[#131a29] border border-[#1b2336]'
-                }`}
-              >
-                <span>{cat.label}</span>
-                {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-sky-300 animate-pulse" />}
-              </button>
-            );
-          })}
+        {/* Category Tabs: Clean horizontal scroll */}
+        <div className="flex flex-wrap items-center gap-2">
+          {categoriesList.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+                activeCategory === cat.id
+                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
+                  : 'bg-[#0d121c] text-slate-400 hover:text-white hover:bg-[#131b2a] border border-[#1b2538]'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Clean Modern Filter Toolbar */}
-      <div className="mb-8 rounded-2xl bg-[#0c101a] border border-[#1b2336] p-3 sm:p-4 shadow-xl">
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
-          
-          {/* Search Bar */}
-          <div className="relative flex-1">
-            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
-            <input
-              type="text"
-              placeholder="Cari kode akun atau nama skin (e.g. COI #0016, Badang)..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#07090f] border border-[#192233] focus:border-blue-500 rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-bold"
-              >
-                ✕
-              </button>
-            )}
+      {/* 2-Column Layout matching acursio.id Screenshot 1 */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+        
+        {/* Left Column: Filter Box (matching Screenshot 1) */}
+        <div className="lg:col-span-1 rounded-2xl p-5 bg-[#0b0f18] border border-[#192336] shadow-xl sticky top-24">
+          <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#162033]">
+            <h3 className="text-base font-extrabold text-white flex items-center gap-2 tracking-wide font-outfit">
+              <Filter size={17} className="text-blue-400" />
+              <span>Filter</span>
+            </h3>
+            <button
+              onClick={handleResetFilter}
+              className="text-xs text-sky-400 hover:text-sky-300 font-semibold flex items-center gap-1 hover:underline"
+              title="Reset semua filter"
+            >
+              <RotateCcw size={12} />
+              <span>Reset</span>
+            </button>
           </div>
 
-          {/* Quick Selectors in row */}
-          <div className="flex flex-wrap items-center gap-2.5">
-            {/* Price Filter */}
-            <div className="relative min-w-[130px] flex-1 sm:flex-none">
-              <select
-                value={priceRange}
-                onChange={(e) => setPriceRange(e.target.value)}
-                className="w-full bg-[#07090f] border border-[#192233] focus:border-blue-500 rounded-xl px-3 py-2.5 text-xs font-medium text-slate-200 transition-colors cursor-pointer appearance-none pr-8"
-              >
-                <option value="all">Semua Harga</option>
-                <option value="under-300">&lt; Rp 300 Ribu</option>
-                <option value="300-600">Rp 300rb - 600rb</option>
-                <option value="600-1000">Rp 600rb - 1 Juta</option>
-                <option value="above-1000">&gt; Rp 1 Juta</option>
-              </select>
-              <ChevronDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+          <div className="space-y-4">
+            {/* Search */}
+            <div>
+              <label htmlFor="search-input" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Cari Kode / Skin
+              </label>
+              <div className="relative">
+                <input
+                  id="search-input"
+                  type="text"
+                  placeholder="e.g. COI #0016, Badang..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors"
+                />
+                <Search size={14} className="absolute right-3 top-2.5 text-slate-500" />
+              </div>
             </div>
 
-            {/* Winrate Filter */}
-            <div className="relative min-w-[120px] flex-1 sm:flex-none">
-              <select
+            {/* Harga Minimal */}
+            <div>
+              <label htmlFor="min-price" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Harga Minimal
+              </label>
+              <div className="relative">
+                <span className="absolute left-3.5 top-2 text-xs font-bold text-sky-400">Rp</span>
+                <input
+                  id="min-price"
+                  type="number"
+                  placeholder="0"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl pl-10 pr-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors font-mono"
+                />
+              </div>
+            </div>
+
+            {/* Harga Maksimal */}
+            <div>
+              <label htmlFor="max-price" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Harga Maksimal
+              </label>
+              <div className="relative">
+                <span className="absolute left-3.5 top-2 text-xs font-bold text-sky-400">Rp</span>
+                <input
+                  id="max-price"
+                  type="number"
+                  placeholder="Contoh: 1.000.000"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl pl-10 pr-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors font-mono"
+                />
+              </div>
+            </div>
+
+            {/* Winrate Minimal */}
+            <div>
+              <label htmlFor="winrate-input" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Winrate Minimal (%)
+              </label>
+              <input
+                id="winrate-input"
+                type="number"
+                placeholder="Contoh: 50"
                 value={minWinrate}
                 onChange={(e) => setMinWinrate(e.target.value)}
-                className="w-full bg-[#07090f] border border-[#192233] focus:border-blue-500 rounded-xl px-3 py-2.5 text-xs font-medium text-slate-200 transition-colors cursor-pointer appearance-none pr-8"
-              >
-                <option value="all">Semua Winrate</option>
-                <option value="50">WR &gt; 50%</option>
-                <option value="55">WR &gt; 55%</option>
-                <option value="60">WR &gt; 60%</option>
-                <option value="65">WR &gt; 65%</option>
-              </select>
-              <ChevronDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+                className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors font-mono"
+              />
             </div>
 
-            {/* Skin Filter */}
-            <div className="relative min-w-[140px] flex-1 sm:flex-none">
+            {/* Pilih Skin Dropdown */}
+            <div>
+              <label htmlFor="skin-select" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Pilih Skin
+              </label>
               <select
+                id="skin-select"
                 value={selectedSkin}
                 onChange={(e) => setSelectedSkin(e.target.value)}
-                className="w-full bg-[#07090f] border border-[#192233] focus:border-blue-500 rounded-xl px-3 py-2.5 text-xs font-medium text-slate-200 transition-colors cursor-pointer appearance-none pr-8"
+                className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl px-3 py-2 text-xs sm:text-sm text-white transition-colors"
               >
                 {AVAILABLE_SKINS_FILTER.map((skin) => (
-                  <option key={skin} value={skin}>
+                  <option key={skin} value={skin} className="bg-[#0b0f18] text-white">
                     {skin}
                   </option>
                 ))}
               </select>
-              <ChevronDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
             </div>
 
-            {/* Sort Filter */}
-            <div className="relative min-w-[140px] flex-1 sm:flex-none">
+            {/* Urutkan / Sort */}
+            <div>
+              <label htmlFor="sort-select" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Urutkan Berdasarkan
+              </label>
               <select
+                id="sort-select"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="w-full bg-[#07090f] border border-[#192233] focus:border-blue-500 rounded-xl px-3 py-2.5 text-xs font-medium text-slate-200 transition-colors cursor-pointer appearance-none pr-8"
+                className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl px-3 py-2 text-xs sm:text-sm text-white transition-colors"
               >
-                <option value="default">Urutan: Rekomendasi</option>
-                <option value="price-asc">Harga: Termurah</option>
-                <option value="price-desc">Harga: Tertinggi</option>
-                <option value="winrate-desc">Winrate: Tertinggi</option>
+                <option value="default" className="bg-[#0b0f18] text-white">Rekomendasi Acursio</option>
+                <option value="price-asc" className="bg-[#0b0f18] text-white">Harga Termurah</option>
+                <option value="price-desc" className="bg-[#0b0f18] text-white">Harga Tertinggi</option>
+                <option value="winrate-desc" className="bg-[#0b0f18] text-white">Winrate Tertinggi</option>
               </select>
-              <ChevronDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
             </div>
 
-            {/* Reset Button */}
+            {/* Tombol Terapkan Filter */}
             <button
-              onClick={handleResetFilter}
-              className="p-2.5 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-slate-400 hover:text-white border border-[#1d273a] transition-colors"
-              title="Reset Filter"
+              onClick={() => {
+                const resultsEl = document.getElementById('catalog-results');
+                if (resultsEl) {
+                  resultsEl.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="w-full mt-2 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs tracking-wider uppercase shadow-md shadow-blue-600/25 transition-all transform active:scale-98 font-outfit"
             >
-              <RotateCcw size={15} />
+              Terapkan Filter ({filteredAccounts.length} Akun)
             </button>
           </div>
         </div>
 
-        {/* Status Bar */}
-        <div className="mt-3 pt-2.5 border-t border-[#172030] flex items-center justify-between text-xs text-slate-400 px-1">
-          <div>
-            Menampilkan <span className="text-white font-bold">{filteredAccounts.length}</span> akun game pilihan
+        {/* Right Column: Account Cards Grid (matching Screenshot 1) */}
+        <div id="catalog-results" className="lg:col-span-3 space-y-6">
+          
+          {/* Quick Header Cards (matching Screenshot 1 top row: LOTM #13045, LOTM #13031, COI #0017) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {quickAccounts.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => onSelectAccount(item)}
+                className="p-3 rounded-xl bg-[#0b0f18] border border-[#192336] hover:border-blue-500/60 transition-all cursor-pointer flex items-center justify-between group shadow-sm"
+              >
+                <div>
+                  <div className="text-xs font-mono font-bold text-slate-300 group-hover:text-sky-400 transition-colors">
+                    {item.code}
+                  </div>
+                  <div className="text-sm font-black text-white font-outfit mt-0.5">
+                    {formatRupiah(item.price)}
+                  </div>
+                </div>
+                <span className="text-[10px] font-bold text-sky-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">
+                  {item.specs.rank}
+                </span>
+              </div>
+            ))}
           </div>
-          <div className="flex items-center gap-1.5 text-emerald-400 font-semibold text-[11px]">
-            <ShieldCheck size={13} />
-            <span>Garansi 100% Anti Hack-Back Resmi Acursio</span>
+
+          {/* Header count info */}
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs sm:text-sm font-semibold text-slate-400">
+              Menampilkan <span className="text-sky-400 font-extrabold font-mono">{filteredAccounts.length}</span> akun game siap beli
+            </span>
+            <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
+              <ShieldCheck size={14} />
+              Garansi 100% Anti Hack-Back
+            </span>
           </div>
+
+          {/* Empty State */}
+          {filteredAccounts.length === 0 ? (
+            <div className="rounded-2xl p-12 bg-[#0b0f18] border border-[#192336] text-center flex flex-col items-center justify-center">
+              <div className="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-3">
+                <Search size={26} />
+              </div>
+              <h3 className="text-base font-bold text-white mb-1 font-outfit">
+                Tidak ada akun yang sesuai kriteria pencarian
+              </h3>
+              <p className="text-xs text-slate-400 max-w-sm mb-5">
+                Coba ubah filter atau klik tombol reset di bawah untuk melihat seluruh akun.
+              </p>
+              <button
+                onClick={handleResetFilter}
+                className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-all shadow-md shadow-blue-600/30"
+              >
+                Reset Semua Filter
+              </button>
+            </div>
+          ) : (
+            /* Product Grid matching Screenshot 1 */
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+              {filteredAccounts.map((acc) => (
+                <div
+                  key={acc.id}
+                  className="group rounded-2xl overflow-hidden bg-[#0c101a] border border-[#182235] hover:border-blue-500/80 transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:shadow-blue-950/40"
+                >
+                  {/* Card Visual Header (montage inspired by Screenshot 1) */}
+                  <div className="relative w-full bg-gradient-to-b from-[#131b2e] to-[#080b13] p-4 flex flex-col justify-between min-h-[220px]">
+                    
+                    {/* Top: ANTI HACK BACK Red Badge matching Screenshot 1 */}
+                    <div className="flex items-center justify-between z-10">
+                      <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-sm font-outfit">
+                        <ShieldCheck size={12} className="text-white" />
+                        <span>ANTI HACK BACK</span>
+                      </div>
+
+                      <span className="text-[10px] font-semibold text-slate-300 bg-black/60 px-2 py-0.5 rounded border border-white/10 font-mono">
+                        {acc.gameTitle}
+                      </span>
+                    </div>
+
+                    {/* Middle Graphic Spec Box matching Screenshot 1 */}
+                    <div className="my-2.5 p-3 rounded-xl bg-black/75 border border-blue-500/20 backdrop-blur-xs flex flex-col items-center justify-center text-center">
+                      <div className="text-xs font-black text-amber-300 uppercase tracking-widest mb-1 flex items-center gap-1 font-outfit">
+                        <Flame size={12} className="text-blue-400" />
+                        <span>{acc.specs.rank}</span>
+                      </div>
+
+                      {/* 4-grid stats: Skins, Match, WR, Emblem */}
+                      <div className="grid grid-cols-4 gap-1.5 w-full mt-2 pt-2 border-t border-white/10 text-center font-mono">
+                        <div>
+                          <div className="text-xs font-black text-white">{acc.specs.totalSkins || '-'}</div>
+                          <div className="text-[9px] text-slate-400 font-semibold uppercase">Skins</div>
+                        </div>
+                        <div>
+                          <div className="text-xs font-black text-white">{acc.specs.matches || '-'}</div>
+                          <div className="text-[9px] text-slate-400 font-semibold uppercase">Match</div>
+                        </div>
+                        <div>
+                          <div className="text-xs font-black text-sky-400">
+                            {acc.specs.winrate ? `${acc.specs.winrate}%` : '-'}
+                          </div>
+                          <div className="text-[9px] text-slate-400 font-semibold uppercase">WR</div>
+                        </div>
+                        <div>
+                          <div className="text-xs font-black text-emerald-400">{acc.specs.emblemStatus || 'FULL'}</div>
+                          <div className="text-[9px] text-slate-400 font-semibold uppercase">Emblem</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Price strip matching Screenshot 1 */}
+                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-2.5 flex items-center justify-between text-white shadow-xs">
+                      <div>
+                        <div className="text-base font-black tracking-tight font-outfit">
+                          {formatRupiah(acc.price)}
+                        </div>
+                        {acc.originalPrice && (
+                          <div className="text-[10px] text-blue-200 line-through -mt-0.5 font-mono">
+                            {formatRupiah(acc.originalPrice)}
+                          </div>
+                        )}
+                      </div>
+                      {acc.myrPrice && (
+                        <div className="text-xs font-black bg-black/40 px-2 py-0.5 rounded text-amber-200 font-mono">
+                          {acc.myrPrice} RM
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Card Body matching Screenshot 1 */}
+                  <div className="p-4 flex flex-col justify-between flex-1 bg-[#0c101a]">
+                    
+                    {/* Tags matching Screenshot 1: #badang (collector) #lunox (legend) & +12 lainnya */}
+                    <div className="flex flex-wrap gap-1.5 mb-2.5">
+                      {acc.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="text-[11px] font-semibold text-sky-300 bg-sky-500/10 px-2 py-0.5 rounded-md border border-sky-500/20"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Code & Title */}
+                    <div>
+                      <div className="text-xs font-mono font-extrabold text-slate-400 uppercase tracking-wider">
+                        {acc.code}
+                      </div>
+                      <h4 
+                        onClick={() => onSelectAccount(acc)}
+                        className="text-sm font-bold text-white line-clamp-2 mt-0.5 hover:text-sky-400 transition-colors cursor-pointer leading-snug"
+                      >
+                        {acc.title}
+                      </h4>
+                    </div>
+
+                    {/* Price & Action Buttons */}
+                    <div className="mt-4 pt-3 border-t border-[#172033] flex items-center gap-2">
+                      <button
+                        onClick={() => onSelectAccount(acc)}
+                        className="flex-1 py-2 px-3 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-slate-300 hover:text-white font-semibold text-xs transition-colors border border-[#1e2a3f]"
+                      >
+                        Detail Akun
+                      </button>
+
+                      <button
+                        onClick={() => onInstantBuy(acc)}
+                        className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs transition-all shadow-md shadow-blue-600/30 text-center font-outfit"
+                      >
+                        Beli Akun
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Clean Grid of Account Cards */}
-      {filteredAccounts.length === 0 ? (
-        <div className="rounded-2xl p-12 bg-[#0c101a] border border-[#1b2336] text-center flex flex-col items-center justify-center">
-          <div className="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-3">
-            <Search size={26} />
-          </div>
-          <h3 className="text-base font-bold text-white mb-1">
-            Tidak ada akun yang sesuai kriteria pencarian
-          </h3>
-          <p className="text-xs text-slate-400 max-w-sm mb-5">
-            Coba ubah rentang harga atau pilih kategori "Semua Game" untuk menemukan akun lainnya.
-          </p>
-          <button
-            onClick={handleResetFilter}
-            className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-all shadow-md shadow-blue-600/20"
-          >
-            Reset Semua Filter
-          </button>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredAccounts.map((acc) => (
-            <div
-              key={acc.id}
-              className="group rounded-2xl overflow-hidden bg-[#0c101a] border border-[#1b2336] hover:border-blue-500/70 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-950/40 flex flex-col justify-between"
-            >
-              {/* Card Header Visual (Clean & Elegant Banner) */}
-              <div className="relative h-44 w-full bg-gradient-to-br from-[#131b2c] via-[#0d1320] to-[#070a12] p-4 flex flex-col justify-between overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 bg-radial from-blue-500/10 via-transparent to-transparent opacity-60" />
-                
-                {/* Top Badges */}
-                <div className="relative z-10 flex items-center justify-between">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 border border-red-500/30 text-red-400 text-[10px] font-extrabold uppercase tracking-wider backdrop-blur-xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                    <span>Anti Hack-Back</span>
-                  </div>
-
-                  <span className="text-[11px] font-semibold text-slate-300 bg-black/50 px-2.5 py-0.5 rounded-full border border-white/10 backdrop-blur-xs">
-                    {acc.gameTitle}
-                  </span>
-                </div>
-
-                {/* Center / Rank Highlight */}
-                <div className="relative z-10 my-auto text-center py-2">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-black/70 border border-blue-500/25 text-amber-300 text-xs font-black uppercase tracking-wider shadow-sm">
-                    <Flame size={13} className="text-blue-400" />
-                    <span>{acc.specs.rank}</span>
-                  </div>
-                  <div className="text-[11px] font-mono text-slate-400 mt-1">
-                    {acc.code} • {acc.specs.loginMethod}
-                  </div>
-                </div>
-
-                {/* Bottom of Visual Header: Price Preview Tag */}
-                <div className="relative z-10 flex items-end justify-between pt-1">
-                  <div>
-                    <span className="text-xl sm:text-2xl font-black text-white font-mono tracking-tight drop-shadow-xs">
-                      {formatRupiah(acc.price)}
-                    </span>
-                    {acc.originalPrice && (
-                      <span className="ml-2 text-xs text-slate-400 line-through">
-                        {formatRupiah(acc.originalPrice)}
-                      </span>
-                    )}
-                  </div>
-
-                  {acc.myrPrice && (
-                    <span className="text-[11px] font-bold text-sky-300 bg-black/50 px-2 py-0.5 rounded-md border border-sky-500/20">
-                      {acc.myrPrice} RM
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Card Body: Clean & Breathable */}
-              <div className="p-5 flex flex-col justify-between flex-1 bg-[#0c101a]">
-                
-                {/* Title */}
-                <div>
-                  <h3 
-                    onClick={() => onSelectAccount(acc)}
-                    className="text-sm sm:text-base font-bold text-white hover:text-sky-400 transition-colors line-clamp-2 cursor-pointer leading-snug"
-                  >
-                    {acc.title}
-                  </h3>
-
-                  {/* Clean Specs Row (No chunky boxes!) */}
-                  <div className="flex items-center gap-2.5 text-xs text-slate-300 py-3 my-3 border-y border-[#161e30]">
-                    {acc.specs.totalSkins !== undefined && (
-                      <div className="flex items-center gap-1">
-                        <span className="font-extrabold text-white font-mono">{acc.specs.totalSkins}</span>
-                        <span className="text-slate-400 text-[11px]">Skins</span>
-                      </div>
-                    )}
-
-                    {acc.specs.matches !== undefined && (
-                      <>
-                        <span className="text-slate-600">•</span>
-                        <div className="flex items-center gap-1">
-                          <span className="font-extrabold text-white font-mono">{acc.specs.matches}</span>
-                          <span className="text-slate-400 text-[11px]">Match</span>
-                        </div>
-                      </>
-                    )}
-
-                    {acc.specs.winrate !== undefined && (
-                      <>
-                        <span className="text-slate-600">•</span>
-                        <div className="flex items-center gap-1">
-                          <span className="font-extrabold text-sky-400 font-mono">{acc.specs.winrate}%</span>
-                          <span className="text-slate-400 text-[11px]">WR</span>
-                        </div>
-                      </>
-                    )}
-
-                    {acc.specs.emblemStatus && (
-                      <>
-                        <span className="text-slate-600">•</span>
-                        <div className="flex items-center gap-1">
-                          <span className="font-extrabold text-emerald-400 text-[11px] uppercase font-mono">{acc.specs.emblemStatus}</span>
-                        </div>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Clean Tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {acc.tags.map((tag, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="text-[11px] font-medium text-slate-300 bg-[#121826] px-2.5 py-0.5 rounded-lg border border-[#1c263c]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Card Action Buttons (Clean & Elegant) */}
-                <div className="pt-2 flex items-center gap-2.5">
-                  <button
-                    onClick={() => onSelectAccount(acc)}
-                    className="flex-1 py-2.5 px-3 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-slate-300 hover:text-white font-semibold text-xs transition-colors border border-[#1e2a3f]"
-                  >
-                    Detail Akun
-                  </button>
-
-                  <button
-                    onClick={() => onInstantBuy(acc)}
-                    className="flex-1 py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-all shadow-md shadow-blue-600/25 flex items-center justify-center gap-1.5"
-                  >
-                    <span>Beli Akun</span>
-                    <ArrowRight size={13} />
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
     </section>
   );
 };

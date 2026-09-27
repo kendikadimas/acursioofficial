@@ -4,14 +4,11 @@ import React, { useState } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroBanner } from '@/components/HeroBanner';
 import { ServiceGrid } from '@/components/ServiceGrid';
-import { CharacterCollection } from '@/components/CharacterCollection';
 import { SalesStats } from '@/components/SalesStats';
 import { AccountCatalog } from '@/components/AccountCatalog';
-import { ReviewsSection } from '@/components/ReviewsSection';
 import { Footer } from '@/components/Footer';
 import { AccountDetailModal } from '@/components/AccountDetailModal';
 import { CheckoutModal } from '@/components/CheckoutModal';
-import { LiveNotificationToast } from '@/components/LiveNotificationToast';
 import { CustomerServiceButton } from '@/components/CustomerServiceButton';
 import { GameAccount, GameCategory } from '@/types/account';
 import { GameService } from '@/data/services';
@@ -22,19 +19,9 @@ export default function Home() {
   const [inspectAccount, setInspectAccount] = useState<GameAccount | null>(null);
   const [checkoutAccount, setCheckoutAccount] = useState<GameAccount | null>(null);
 
-  // When a service card is clicked in "Pilihan Game Jual Beli Akun"
+  // When a game card is clicked in "Pilihan Game Jual Beli Akun"
   const handleSelectService = (service: GameService) => {
     setSelectedCategory(service.slug as GameCategory);
-    const jubelSection = document.getElementById('jubel');
-    if (jubelSection) {
-      jubelSection.scrollIntoView({ behavior: 'smooth' });
-      setActiveTab('jubel');
-    }
-  };
-
-  // When a character card is clicked in "Jelajahi Koleksi Akun"
-  const handleSelectCategory = (cat: GameCategory) => {
-    setSelectedCategory(cat);
     const jubelSection = document.getElementById('jubel');
     if (jubelSection) {
       jubelSection.scrollIntoView({ behavior: 'smooth' });
@@ -65,13 +52,7 @@ export default function Home() {
       {/* Pilihan Game Jual Beli Akun (Screenshot 3) */}
       <ServiceGrid onSelectService={handleSelectService} />
 
-      {/* Jelajahi Koleksi Akun (Screenshot 5) */}
-      <CharacterCollection 
-        onSelectCategory={handleSelectCategory}
-        activeCategory={selectedCategory}
-      />
-
-      {/* Statistik Penjualan (Screenshot 4) */}
+      {/* Jaminan Transaksi & Keamanan Akun (Honest Guarantee Pillars) */}
       <SalesStats />
 
       {/* Jubel: Katalog Akun Game dengan Filter Sidebar (Screenshot 1) */}
@@ -81,14 +62,10 @@ export default function Home() {
         onInstantBuy={handleInstantBuy}
       />
 
-      {/* Ulasan Pelanggan (Screenshot 4) */}
-      <ReviewsSection />
-
       {/* Footer Lengkap */}
       <Footer />
 
-      {/* Floating Elements from Screenshots */}
-      <LiveNotificationToast />
+      {/* Floating Fast CS WhatsApp Support */}
       <CustomerServiceButton />
 
       {/* Interactive Modals */}

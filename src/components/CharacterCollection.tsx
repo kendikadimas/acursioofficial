@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { GameCategory } from '@/types/account';
-import { Sparkles } from 'lucide-react';
 
 interface CharacterCollectionProps {
   onSelectCategory: (category: GameCategory) => void;
@@ -35,7 +34,7 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
       subtitle: 'Tencent',
       badge: 'PUBGM',
       customColor: 'from-blue-600/25 to-slate-900/40',
-      iconChar: '👑',
+      charTag: 'PUBGM',
       charName: 'Pharaoh X-Suit',
     },
     {
@@ -44,7 +43,7 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
       subtitle: 'Mihoyo',
       badge: 'GENSHIN',
       customColor: 'from-sky-600/25 to-indigo-950/40',
-      iconChar: '🌸',
+      charTag: 'GENSHIN',
       charName: 'Yae Miko Shrine',
     },
     {
@@ -53,7 +52,7 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
       subtitle: 'Konami',
       badge: 'E-FOOTBALL',
       customColor: 'from-cyan-600/25 to-blue-950/40',
-      iconChar: '⚽',
+      charTag: 'PES',
       charName: 'Lionel Messi BigTime',
     },
   ];
@@ -62,9 +61,8 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
     <section className="py-8 sm:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header */}
       <div className="mb-6 sm:mb-8">
-        <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
-          <span>Jelajahi Koleksi Akun</span>
-          <Sparkles size={20} className="text-blue-400 animate-spin" />
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-outfit">
+          Jelajahi Koleksi Akun
         </h2>
         <p className="mt-1 text-sm sm:text-base text-slate-400 font-medium max-w-3xl">
           Solusi terpercaya jual beli akun game sultan dan akun terawat dalam satu tempat.
@@ -114,12 +112,12 @@ export const CharacterCollection: React.FC<CharacterCollectionProps> = ({
                     />
                   </div>
                 ) : (
-                  /* Stylized game character art card */
+                  /* Stylized game character art card without emoji */
                   <div className={`relative z-10 w-full h-full flex flex-col items-center justify-center p-4 bg-gradient-to-t ${item.customColor}`}>
-                    <div className="text-5xl sm:text-6xl mb-2 filter drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] group-hover:scale-110 transition-transform">
-                      {item.iconChar}
+                    <div className="w-16 h-16 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                      <span className="text-xl font-black text-sky-300 font-outfit">{item.charTag}</span>
                     </div>
-                    <span className="text-xs sm:text-sm font-black text-sky-200 text-center tracking-wide px-2 py-1 rounded bg-black/70 border border-blue-500/30">
+                    <span className="text-xs sm:text-sm font-black text-sky-200 text-center tracking-wide px-2.5 py-1 rounded-lg bg-black/70 border border-blue-500/30 font-outfit">
                       {item.charName}
                     </span>
                   </div>

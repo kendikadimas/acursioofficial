@@ -7,8 +7,7 @@ import { PAYMENT_CONFIG } from '@/data/payment';
 import { 
   Home, 
   ShoppingBag, 
-  BarChart3, 
-  MessageSquare, 
+  Gamepad2, 
   Info, 
   Menu, 
   X, 
@@ -38,9 +37,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab = 'beranda', onNavigat
 
   const navItems = [
     { id: 'beranda', label: 'Beranda', icon: Home, href: '#beranda' },
+    { id: 'layanan', label: 'Pilihan Game', icon: Gamepad2, href: '#layanan' },
     { id: 'jubel', label: 'Katalog Akun', icon: ShoppingBag, href: '#jubel', highlight: true },
-    { id: 'statistik', label: 'Statistik', icon: BarChart3, href: '#statistik' },
-    { id: 'review', label: 'Review', icon: MessageSquare, href: '#review' },
+    { id: 'jaminan', label: 'Jaminan Akun', icon: ShieldCheck, href: '#jaminan' },
   ];
 
   const handleNavClick = (id: string, href: string) => {

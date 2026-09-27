@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Sparkles, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const HeroBanner: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -70,13 +70,13 @@ export const HeroBanner: React.FC = () => {
           {/* Content Layer */}
           <div className="absolute inset-0 flex flex-col items-center justify-end p-6 sm:p-10 text-center z-10">
             {/* Top pill badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/40 text-sky-300 text-xs sm:text-sm font-bold tracking-wide uppercase mb-2 backdrop-blur-xs">
-              <Sparkles size={14} className="text-sky-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/40 text-sky-300 text-xs sm:text-sm font-bold tracking-wide uppercase mb-2">
+              <Shield size={14} className="text-sky-400" />
               <span>{active.badge}</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-xl sm:text-3xl lg:text-4xl font-black text-white max-w-4xl tracking-tight leading-snug drop-shadow-md">
+            <h1 className="text-xl sm:text-3xl lg:text-4xl font-black text-white max-w-4xl tracking-tight leading-snug drop-shadow-md font-outfit">
               {active.title}
             </h1>
 
@@ -88,13 +88,10 @@ export const HeroBanner: React.FC = () => {
             <div className="mt-4 sm:mt-6">
               <a
                 href={active.ctaLink}
-                className="group inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-black/85 hover:bg-black text-white border-2 border-blue-500 hover:border-sky-400 text-xs sm:text-base font-black tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-blue-600/30"
+                className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-blue-600/30 font-outfit"
               >
-                <span className="text-sky-400 group-hover:text-sky-300 font-extrabold">
-                  {active.ctaText}
-                </span>
-                <span className="text-slate-200">WWW.ACURSIO.STORE</span>
-                <ExternalLink size={16} className="text-sky-400 group-hover:translate-x-0.5 transition-transform" />
+                <span>{active.ctaText}</span>
+                <ExternalLink size={15} className="group-hover:translate-x-0.5 transition-transform" />
               </a>
             </div>
 

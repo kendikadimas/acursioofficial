@@ -20,7 +20,7 @@ export const CustomerServiceButton: React.FC = () => {
               <div>
                 <div className="text-xs font-black text-white">Customer Service Acursio</div>
                 <div className="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                   Online 24 Jam
                 </div>
               </div>
