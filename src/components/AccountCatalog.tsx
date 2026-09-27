@@ -6,41 +6,41 @@ import { GameAccount, GameCategory } from '@/types/account';
 import { GAME_ACCOUNTS, AVAILABLE_SKINS_FILTER } from '@/data/accounts';
 import { formatRupiah } from '@/data/payment';
 import { 
-  ShieldCheck, 
-  Filter, 
-  RotateCcw, 
   Search, 
-  Flame, 
-  ShoppingBag,
-  ArrowRight,
-  Sparkles,
-  Award
+  RotateCcw, 
+  ShieldCheck, 
+  Filter,
+  Eye,
+  ShoppingCart
 } from 'lucide-react';
 
 interface AccountCatalogProps {
-  selectedCategory: GameCategory | 'all';
   onSelectAccount: (account: GameAccount) => void;
   onInstantBuy: (account: GameAccount) => void;
+  selectedCategory?: GameCategory | 'all';
 }
 
-export const AccountCatalog: React.FC<AccountCatalogProps> = ({
-  selectedCategory,
+export const AccountCatalog: React.FC<AccountCatalogProps> = ({ 
   onSelectAccount,
   onInstantBuy,
+  selectedCategory = 'all' 
 }) => {
   const [activeCategory, setActiveCategory] = useState<GameCategory | 'all'>(selectedCategory);
+
+  // Sync state if selectedCategory prop changes
+  React.useEffect(() => {
+    if (selectedCategory) {
+      setActiveCategory(selectedCategory);
+    }
+  }, [selectedCategory]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [minPrice, setMinPrice] = useState<string>('');
   const [maxPrice, setMaxPrice] = useState<string>('');
   const [minWinrate, setMinWinrate] = useState<string>('');
   const [selectedSkin, setSelectedSkin] = useState<string>('Semua Skin');
-  const [searchQuery, setSearchQuery] = useState<string>('');
   const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc' | 'winrate-desc'>('default');
 
-  // Sync category if parent updates
-  React.useEffect(() => {
-    setActiveCategory(selectedCategory);
-  }, [selectedCategory]);
-
+  // Categories list
   const categoriesList: { id: GameCategory | 'all'; label: string }[] = [
     { id: 'all', label: 'Semua Game' },
     { id: 'mobile-legend', label: 'Mobile Legends' },
@@ -50,32 +50,37 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
     { id: 'e-football', label: 'E-Football' },
   ];
 
+  // Reset all filters
   const handleResetFilter = () => {
+    setActiveCategory('all');
+    setSearchQuery('');
     setMinPrice('');
     setMaxPrice('');
     setMinWinrate('');
     setSelectedSkin('Semua Skin');
-    setSearchQuery('');
     setSortBy('default');
-    setActiveCategory('all');
   };
 
   // Filtered & Sorted accounts
   const filteredAccounts = useMemo(() => {
     return GAME_ACCOUNTS.filter((acc) => {
-      // Category filter
+      // Category Filter
       if (activeCategory !== 'all' && acc.game !== activeCategory) {
         return false;
       }
 
       // Min Price
-      if (minPrice && !isNaN(Number(minPrice)) && acc.price < Number(minPrice)) {
-        return false;
+      if (minPrice && !isNaN(Number(minPrice))) {
+        if (acc.price < Number(minPrice)) {
+          return false;
+        }
       }
 
       // Max Price
-      if (maxPrice && !isNaN(Number(maxPrice)) && acc.price > Number(maxPrice)) {
-        return false;
+      if (maxPrice && !isNaN(Number(maxPrice))) {
+        if (acc.price > Number(maxPrice)) {
+          return false;
+        }
       }
 
       // Min Winrate
@@ -116,25 +121,20 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
     });
   }, [activeCategory, minPrice, maxPrice, minWinrate, selectedSkin, searchQuery, sortBy]);
 
-  // Quick top row accounts (matching Screenshot 1: LOTM #13045, LOTM #13031, COI #0017)
-  const quickAccounts = useMemo(() => {
-    return GAME_ACCOUNTS.slice(3, 6);
-  }, []);
-
   return (
-    <section id="jubel" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="jubel" className="py-10 sm:py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight font-outfit">
-            Jual Beli Akun Game Acursio
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight font-outfit">
+            Katalog Akun Game
           </h2>
           <p className="mt-1 text-sm sm:text-base text-slate-400 font-medium">
-            Koleksi akun sultan terverifikasi dengan garansi Anti Hack-Back 100% selamanya.
+            Pilihan akun game terverifikasi dengan jaminan 100% Anti Hack-Back resmi Acursio.
           </p>
         </div>
 
-        {/* Category Tabs: Clean horizontal scroll */}
+        {/* Category Tabs */}
         <div className="flex flex-wrap items-center gap-2">
           {categoriesList.map((cat) => (
             <button
@@ -152,42 +152,41 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
         </div>
       </div>
 
-      {/* 2-Column Layout matching acursio.id Screenshot 1 */}
+      {/* 2-Column Clean Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
         
-        {/* Left Column: Filter Box (matching Screenshot 1) */}
-        <div className="lg:col-span-1 rounded-2xl p-5 bg-[#0b0f18] border border-[#192336] shadow-xl sticky top-24">
+        {/* Left Column: Filter Sidebar */}
+        <div className="lg:col-span-1 rounded-2xl p-5 bg-[#0b0f18] border border-[#182236] shadow-xl sticky top-24">
           <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#162033]">
-            <h3 className="text-base font-extrabold text-white flex items-center gap-2 tracking-wide font-outfit">
-              <Filter size={17} className="text-blue-400" />
-              <span>Filter</span>
+            <h3 className="text-sm font-extrabold text-white flex items-center gap-2 tracking-wide font-outfit uppercase">
+              <Filter size={16} className="text-sky-400" />
+              <span>Filter Akun</span>
             </h3>
             <button
               onClick={handleResetFilter}
-              className="text-xs text-sky-400 hover:text-sky-300 font-semibold flex items-center gap-1 hover:underline"
-              title="Reset semua filter"
+              className="text-xs text-sky-400 hover:text-sky-300 flex items-center gap-1 font-semibold transition-colors"
             >
-              <RotateCcw size={12} />
+              <RotateCcw size={13} />
               <span>Reset</span>
             </button>
           </div>
 
           <div className="space-y-4">
-            {/* Search */}
+            {/* Search Input */}
             <div>
-              <label htmlFor="search-input" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label htmlFor="search-account" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                 Cari Kode / Skin
               </label>
               <div className="relative">
                 <input
-                  id="search-input"
+                  id="search-account"
                   type="text"
                   placeholder="e.g. COI #0016, Badang..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors"
+                  className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl pl-3.5 pr-9 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors"
                 />
-                <Search size={14} className="absolute right-3 top-2.5 text-slate-500" />
+                <Search size={15} className="absolute right-3 top-2.5 text-slate-400" />
               </div>
             </div>
 
@@ -197,14 +196,14 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
                 Harga Minimal
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-2 text-xs font-bold text-sky-400">Rp</span>
+                <span className="absolute left-3 top-2 text-xs font-semibold text-slate-400 font-mono">Rp</span>
                 <input
                   id="min-price"
                   type="number"
                   placeholder="0"
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
-                  className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl pl-10 pr-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors font-mono"
+                  className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl pl-9 pr-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors font-mono"
                 />
               </div>
             </div>
@@ -215,25 +214,25 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
                 Harga Maksimal
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-2 text-xs font-bold text-sky-400">Rp</span>
+                <span className="absolute left-3 top-2 text-xs font-semibold text-slate-400 font-mono">Rp</span>
                 <input
                   id="max-price"
                   type="number"
-                  placeholder="Contoh: 1.000.000"
+                  placeholder="contoh: 1.000.000"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
-                  className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl pl-10 pr-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors font-mono"
+                  className="w-full bg-[#07090f] border border-[#172133] focus:border-blue-500 rounded-xl pl-9 pr-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 transition-colors font-mono"
                 />
               </div>
             </div>
 
             {/* Winrate Minimal */}
             <div>
-              <label htmlFor="winrate-input" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label htmlFor="min-wr" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                 Winrate Minimal (%)
               </label>
               <input
-                id="winrate-input"
+                id="min-wr"
                 type="number"
                 placeholder="Contoh: 50"
                 value={minWinrate}
@@ -278,70 +277,34 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
                 <option value="winrate-desc" className="bg-[#0b0f18] text-white">Winrate Tertinggi</option>
               </select>
             </div>
-
-            {/* Tombol Terapkan Filter */}
-            <button
-              onClick={() => {
-                const resultsEl = document.getElementById('catalog-results');
-                if (resultsEl) {
-                  resultsEl.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="w-full mt-2 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs tracking-wider uppercase shadow-md shadow-blue-600/25 transition-all transform active:scale-98 font-outfit"
-            >
-              Terapkan Filter ({filteredAccounts.length} Akun)
-            </button>
           </div>
         </div>
 
-        {/* Right Column: Account Cards Grid (matching Screenshot 1) */}
-        <div id="catalog-results" className="lg:col-span-3 space-y-6">
+        {/* Right Column: Account Cards Grid */}
+        <div id="catalog-results" className="lg:col-span-3 space-y-5">
           
-          {/* Quick Header Cards (matching Screenshot 1 top row: LOTM #13045, LOTM #13031, COI #0017) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {quickAccounts.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => onSelectAccount(item)}
-                className="p-3 rounded-xl bg-[#0b0f18] border border-[#192336] hover:border-blue-500/60 transition-all cursor-pointer flex items-center justify-between group shadow-sm"
-              >
-                <div>
-                  <div className="text-xs font-mono font-bold text-slate-300 group-hover:text-sky-400 transition-colors">
-                    {item.code}
-                  </div>
-                  <div className="text-sm font-black text-white font-outfit mt-0.5">
-                    {formatRupiah(item.price)}
-                  </div>
-                </div>
-                <span className="text-[10px] font-bold text-sky-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">
-                  {item.specs.rank}
-                </span>
-              </div>
-            ))}
-          </div>
-
           {/* Header count info */}
           <div className="flex items-center justify-between px-1">
             <span className="text-xs sm:text-sm font-semibold text-slate-400">
               Menampilkan <span className="text-sky-400 font-extrabold font-mono">{filteredAccounts.length}</span> akun game siap beli
             </span>
-            <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
-              <ShieldCheck size={14} />
-              Garansi 100% Anti Hack-Back
+            <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1.5 font-outfit">
+              <ShieldCheck size={15} />
+              <span>Garansi 100% Anti Hack-Back</span>
             </span>
           </div>
 
           {/* Empty State */}
           {filteredAccounts.length === 0 ? (
-            <div className="rounded-2xl p-12 bg-[#0b0f18] border border-[#192336] text-center flex flex-col items-center justify-center">
-              <div className="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-3">
-                <Search size={26} />
+            <div className="rounded-2xl p-12 bg-[#0b0f18] border border-[#182236] text-center flex flex-col items-center justify-center">
+              <div className="w-14 h-14 rounded-2xl bg-blue-500/10 text-sky-400 flex items-center justify-center mb-3">
+                <Search size={24} />
               </div>
               <h3 className="text-base font-bold text-white mb-1 font-outfit">
-                Tidak ada akun yang sesuai kriteria pencarian
+                Tidak ada akun yang sesuai kriteria
               </h3>
               <p className="text-xs text-slate-400 max-w-sm mb-5">
-                Coba ubah filter atau klik tombol reset di bawah untuk melihat seluruh akun.
+                Coba ubah kata kunci atau klik tombol reset di bawah untuk melihat semua akun.
               </p>
               <button
                 onClick={handleResetFilter}
@@ -351,17 +314,17 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
               </button>
             </div>
           ) : (
-            /* Product Grid: Image -> Title -> Desc -> Price -> Spek on click */
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+            /* Clean Product Grid: Image -> Title -> Desc -> Price -> Spek on click */
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
               {filteredAccounts.map((acc) => (
                 <div
                   key={acc.id}
-                  className="group rounded-2xl overflow-hidden bg-[#0c101a] border border-[#182235] hover:border-blue-500/80 transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-xl hover:shadow-blue-950/40"
+                  className="group rounded-2xl overflow-hidden bg-[#0c101a] border border-[#182236] hover:border-blue-500/80 transition-all duration-300 flex flex-col justify-between shadow-md hover:shadow-xl hover:shadow-blue-950/30"
                 >
-                  {/* 1. Image Container (Resolution Placeholder) */}
+                  {/* 1. Image Container (Clean 800x600 Placeholder) */}
                   <div
                     onClick={() => onSelectAccount(acc)}
-                    className="relative w-full aspect-[16/10] overflow-hidden bg-[#0a0e17] cursor-pointer"
+                    className="relative w-full aspect-[16/10] overflow-hidden bg-[#090d16] cursor-pointer"
                   >
                     <Image
                       src={acc.thumbnailUrl}
@@ -371,60 +334,52 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
 
-                    {/* Top Badges */}
+                    {/* Clean Subtle Top Tags */}
                     <div className="absolute top-2.5 inset-x-2.5 flex items-center justify-between pointer-events-none">
-                      <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-sm font-outfit">
-                        <ShieldCheck size={11} className="text-white" />
-                        <span>ANTI HACK BACK</span>
-                      </div>
-
-                      <span className="text-[10px] font-bold text-sky-300 bg-black/75 px-2 py-0.5 rounded border border-white/10 font-mono backdrop-blur-xs">
-                        {acc.gameTitle}
-                      </span>
-                    </div>
-
-                    {/* Bottom Code Tag */}
-                    <div className="absolute bottom-2.5 left-2.5 pointer-events-none">
-                      <span className="text-[11px] font-black font-mono text-white bg-blue-600/90 px-2.5 py-0.5 rounded shadow-sm">
+                      <span className="text-[10px] font-extrabold text-sky-300 bg-slate-950/85 px-2.5 py-0.5 rounded-md border border-sky-500/20 backdrop-blur-xs font-mono uppercase tracking-wider">
                         {acc.code}
+                      </span>
+
+                      <span className="text-[10px] font-bold text-slate-300 bg-black/80 px-2 py-0.5 rounded-md border border-white/10 font-outfit backdrop-blur-xs">
+                        {acc.gameTitle}
                       </span>
                     </div>
                   </div>
 
                   {/* Card Body: Title, Desc, Price & Actions */}
-                  <div className="p-4 flex flex-col justify-between flex-1 bg-[#0c101a]">
+                  <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 bg-[#0c101a]">
                     <div>
                       {/* 2. Title Produk */}
                       <h3
                         onClick={() => onSelectAccount(acc)}
-                        className="text-sm sm:text-base font-bold text-white hover:text-sky-400 transition-colors cursor-pointer leading-snug font-outfit line-clamp-2"
+                        className="text-sm sm:text-base font-bold text-white group-hover:text-sky-300 transition-colors cursor-pointer leading-snug font-outfit line-clamp-2"
                       >
                         {acc.title}
                       </h3>
 
                       {/* 3. Description */}
-                      <p className="text-xs text-slate-400 line-clamp-2 font-medium leading-relaxed mt-2 mb-3">
+                      <p className="text-xs text-slate-400 line-clamp-2 font-normal leading-relaxed mt-2 mb-4">
                         {acc.description || `${acc.gameTitle} terawat dengan data bind aman dan garansi 100% Anti Hack-Back.`}
                       </p>
                     </div>
 
                     {/* 4. Harga & Spek on click */}
-                    <div className="pt-3 border-t border-[#172033] mt-auto">
-                      {/* Price tag */}
-                      <div className="flex items-baseline justify-between mb-3">
+                    <div className="pt-3.5 border-t border-[#172033] mt-auto">
+                      {/* Price row */}
+                      <div className="flex items-baseline justify-between mb-3.5">
                         <div>
                           <div className="text-base sm:text-lg font-black text-white tracking-tight font-outfit">
                             {formatRupiah(acc.price)}
                           </div>
                           {acc.originalPrice && (
-                            <div className="text-[11px] text-slate-500 line-through font-mono">
+                            <div className="text-[11px] text-slate-500 line-through font-mono mt-0.5">
                               {formatRupiah(acc.originalPrice)}
                             </div>
                           )}
                         </div>
 
                         {acc.myrPrice && (
-                          <span className="text-xs font-bold text-amber-300 font-mono bg-[#141b2a] px-2 py-0.5 rounded border border-amber-500/20">
+                          <span className="text-[11px] font-bold text-amber-300 font-mono bg-[#141b2a] px-2 py-0.5 rounded border border-amber-500/20">
                             {acc.myrPrice} RM
                           </span>
                         )}
@@ -434,16 +389,18 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => onSelectAccount(acc)}
-                          className="flex-1 py-2 px-3 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-slate-300 hover:text-white font-semibold text-xs transition-colors border border-[#1e2a3f] text-center"
+                          className="flex-1 py-2.5 px-3 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-slate-300 hover:text-white font-semibold text-xs transition-colors border border-[#1e2a3f] text-center flex items-center justify-center gap-1.5"
                         >
-                          Lihat Spek
+                          <Eye size={13} className="text-sky-400" />
+                          <span>Lihat Spek</span>
                         </button>
 
                         <button
                           onClick={() => onInstantBuy(acc)}
-                          className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs transition-all shadow-md shadow-blue-600/30 text-center font-outfit"
+                          className="flex-1 py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-all shadow-md shadow-blue-600/30 text-center font-outfit flex items-center justify-center gap-1.5"
                         >
-                          Beli Akun
+                          <ShoppingCart size={13} />
+                          <span>Beli Akun</span>
                         </button>
                       </div>
                     </div>

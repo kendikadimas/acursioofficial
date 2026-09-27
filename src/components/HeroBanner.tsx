@@ -1,137 +1,101 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
-import { ExternalLink, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, ShieldCheck, Gamepad2, ArrowRight, Zap, QrCode } from 'lucide-react';
 
 export const HeroBanner: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const slides = [
-    {
-      id: 1,
-      title: 'JUAL BELI AKUN GAME SULTAN TERPERCAYA',
-      highlight: '100% ANTI HACK BACK • DATA LENGKAP & AMAN',
-      ctaText: 'LIHAT KATALOG AKUN',
-      ctaLink: '/katalog',
-      image: '/images/placeholder-1600x900.svg',
-      badge: 'GARANSI RESMI',
-    },
-    {
-      id: 2,
-      title: 'KOLEKSI AKUN MOBILE LEGENDS, FF, PUBG, GENSHIN & E-FOOTBALL',
-      highlight: 'SKIN COLLECTOR, LEGEND, EVO GUN & SQUAD SULTAN',
-      ctaText: 'PILIH GAME FAVORIT',
-      ctaLink: '/game',
-      image: '/images/placeholder-1600x900.svg',
-      badge: 'TERVERIFIKASI',
-    },
-    {
-      id: 3,
-      title: 'PEMBAYARAN MUDAH VIA QRIS ALL PAYMENT',
-      highlight: 'BCA, MANDIRI, BRI, GOPAY, DANA • KONFIRMASI WHATSAPP',
-      ctaText: 'ORDER AKUN SEKARANG',
-      ctaLink: '/katalog',
-      image: '/images/placeholder-1600x900.svg',
-      badge: 'SERAH TERIMA KILAT',
-    },
-  ];
-
-  // Auto slide every 6 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
-
-  const active = slides[currentSlide];
-
   return (
-    <section className="relative pt-24 pb-8 sm:pt-28 sm:pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Banner Container */}
-      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-blue-500/30 bg-gradient-to-br from-[#0b101c] via-[#070a12] to-[#04060a] shadow-2xl shadow-blue-950/40">
+    <section className="relative pt-24 pb-6 sm:pt-28 sm:pb-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Banner Container: Clean Pure Typography with Deep Sapphire Backdrop */}
+      <div className="relative rounded-3xl overflow-hidden border border-blue-500/30 bg-gradient-to-b from-[#0b1222] via-[#070b16] to-[#04060b] p-8 sm:p-14 lg:p-16 text-center shadow-2xl shadow-blue-950/40">
         
-        {/* Background Image */}
-        <div className="relative w-full h-[280px] sm:h-[380px] lg:h-[460px] overflow-hidden">
-          <Image
-            src={active.image}
-            alt={active.title}
-            fill
-            priority
-            className="object-cover object-center transform transition-transform duration-700 ease-out scale-100 hover:scale-105"
-            sizes="(max-width: 1280px) 100vw, 1280px"
-          />
+        {/* Subtle Ambient Radial Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-64 bg-blue-600/15 blur-3xl pointer-events-none rounded-full" />
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent pointer-events-none" />
 
-          {/* Dark Overlay with deep sapphire gradients */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#06080d] via-[#06080d]/65 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#06080d]/90 via-transparent to-[#06080d]/90" />
+        {/* Content Container */}
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+          
+          {/* Top Pill Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 border border-blue-500/35 text-sky-300 text-xs sm:text-sm font-bold tracking-wide uppercase mb-5 shadow-xs font-mono">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <ShieldCheck size={16} className="text-sky-400" />
+            <span>Garansi 100% Anti Hack-Back • Acursio Official</span>
+          </div>
 
-          {/* Content Layer */}
-          <div className="absolute inset-0 flex flex-col items-center justify-end p-6 sm:p-10 text-center z-10">
-            {/* Top pill badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/40 text-sky-300 text-xs sm:text-sm font-bold tracking-wide uppercase mb-2">
-              <Shield size={14} className="text-sky-400" />
-              <span>{active.badge}</span>
+          {/* Main Typography Headline */}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight sm:leading-none font-outfit uppercase">
+            Jual Beli Akun Game Sultan Terpercaya
+          </h1>
+
+          {/* Subheadline Text */}
+          <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-slate-300 max-w-2xl font-normal leading-relaxed">
+            Pusat transaksi akun Mobile Legends, Free Fire, PUBG Mobile, Genshin Impact & eFootball. Terverifikasi 100% aman dengan serah terima data kilat dan garansi uang kembali seumur hidup.
+          </p>
+
+          {/* Call To Actions */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <Link
+              href="/katalog"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-black text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-blue-600/35 font-outfit"
+            >
+              <span>Lihat Katalog Akun</span>
+              <ArrowRight size={16} />
+            </Link>
+
+            <Link
+              href="/game"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#121929] hover:bg-[#1a233a] text-slate-200 hover:text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-all border border-[#222f46] font-outfit"
+            >
+              <Gamepad2 size={16} className="text-sky-400" />
+              <span>Pilihan Game</span>
+            </Link>
+
+            <Link
+              href="/jaminan"
+              className="inline-flex items-center gap-1.5 px-4 py-3.5 text-xs sm:text-sm font-semibold text-slate-400 hover:text-sky-300 transition-colors"
+            >
+              <span>Baca Aturan Garansi</span>
+              <ExternalLink size={14} />
+            </Link>
+          </div>
+
+          {/* Trust Value Badges Strip */}
+          <div className="mt-10 sm:mt-12 pt-6 border-t border-white/10 w-full grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div className="flex flex-col items-center">
+              <div className="flex items-center gap-1.5 text-emerald-400 text-xs sm:text-sm font-bold font-outfit">
+                <ShieldCheck size={16} />
+                <span>100% Anti Hack-Back</span>
+              </div>
+              <span className="text-[11px] text-slate-400 mt-0.5">Garansi seumur hidup</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-xl sm:text-3xl lg:text-4xl font-black text-white max-w-4xl tracking-tight leading-snug drop-shadow-md font-outfit">
-              {active.title}
-            </h1>
-
-            <p className="mt-1 sm:mt-2 text-sm sm:text-base font-semibold text-sky-200 drop-shadow">
-              {active.highlight}
-            </p>
-
-            {/* Click CTA Button */}
-            <div className="mt-4 sm:mt-6">
-              <Link
-                href={active.ctaLink}
-                className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-blue-600/30 font-outfit"
-              >
-                <span>{active.ctaText}</span>
-                <ExternalLink size={15} className="group-hover:translate-x-0.5 transition-transform" />
-              </Link>
+            <div className="flex flex-col items-center">
+              <div className="flex items-center gap-1.5 text-sky-400 text-xs sm:text-sm font-bold font-outfit">
+                <Zap size={16} />
+                <span>Serah Terima Kilat</span>
+              </div>
+              <span className="text-[11px] text-slate-400 mt-0.5">Proses 5-15 menit</span>
             </div>
 
-            {/* Security Guarantee Tag */}
-            <div className="mt-3 sm:mt-4 flex items-center gap-2 text-[11px] sm:text-xs text-slate-300 bg-black/50 px-3 py-1 rounded-full border border-white/10 backdrop-blur-xs">
-              <Shield size={13} className="text-emerald-400" />
-              <span>Garansi 100% Anti Hack-Back • Transaksi Akun Aman Terpercaya</span>
+            <div className="flex flex-col items-center">
+              <div className="flex items-center gap-1.5 text-amber-300 text-xs sm:text-sm font-bold font-outfit">
+                <QrCode size={16} />
+                <span>QRIS All Payment</span>
+              </div>
+              <span className="text-[11px] text-slate-400 mt-0.5">BCA, Mandiri, E-Wallet</span>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <div className="flex items-center gap-1.5 text-indigo-400 text-xs sm:text-sm font-bold font-outfit">
+                <Gamepad2 size={16} />
+                <span>Data Akun Aman</span>
+              </div>
+              <span className="text-[11px] text-slate-400 mt-0.5">Semua bind diperiksa SOP</span>
             </div>
           </div>
 
-          {/* Navigation Arrows */}
-          <button
-            onClick={() => setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))}
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-blue-600 text-white flex items-center justify-center border border-white/20 transition-all z-20"
-            aria-label="Slide sebelumnya"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <button
-            onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/60 hover:bg-blue-600 text-white flex items-center justify-center border border-white/20 transition-all z-20"
-            aria-label="Slide selanjutnya"
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
-
-        {/* Carousel Pagination Dots */}
-        <div className="py-3 bg-[#080b12] flex items-center justify-center gap-2 border-t border-[#161c28]">
-          {slides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentSlide(idx)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                currentSlide === idx ? 'w-8 bg-blue-500' : 'w-2.5 bg-slate-700 hover:bg-slate-600'
-              }`}
-              aria-label={`Buka slide ke-${idx + 1}`}
-            />
-          ))}
         </div>
       </div>
     </section>

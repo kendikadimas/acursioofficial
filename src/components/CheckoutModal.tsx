@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { GameAccount } from '@/types/account';
 import { PAYMENT_CONFIG, formatRupiah, generateWhatsAppOrderUrl } from '@/data/payment';
 import { 
@@ -135,40 +136,15 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ account, onClose }
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-5">
-            {/* Visual QRIS Code */}
-            <div className="w-44 h-44 bg-white p-3 rounded-2xl shadow-xl flex flex-col items-center justify-between shrink-0 border-2 border-blue-400">
-              <div className="text-[10px] font-black text-black tracking-widest uppercase">
-                QRIS INDONESIA
-              </div>
-
-              {/* Graphic QR pattern */}
-              <div className="w-28 h-28 bg-gray-50 border border-gray-300 p-1.5 grid grid-cols-7 gap-0.5">
-                <div className="col-span-2 row-span-2 bg-black" />
-                <div className="col-span-3 bg-black" />
-                <div className="col-span-2 row-span-2 bg-black" />
-                <div className="col-span-1" />
-                <div className="col-span-1 bg-black" />
-                <div className="col-span-1" />
-                <div className="col-span-2 row-span-2 bg-black" />
-                <div className="col-span-3 bg-black" />
-                <div className="col-span-2 row-span-2 bg-black" />
-                <div className="col-span-2" />
-                <div className="col-span-3 bg-black" />
-                <div className="col-span-2" />
-                <div className="col-span-2 row-span-2 bg-black" />
-                <div className="col-span-3" />
-                <div className="col-span-2 row-span-2 bg-black" />
-                <div className="col-span-1 bg-black" />
-                <div className="col-span-1" />
-                <div className="col-span-1 bg-black" />
-                <div className="col-span-2 row-span-2 bg-black" />
-                <div className="col-span-3 bg-black" />
-                <div className="col-span-2 row-span-2 bg-black" />
-              </div>
-
-              <div className="text-[9px] font-extrabold text-gray-800">
-                A/N ACURSIO OFFICIAL
-              </div>
+            {/* Visual QRIS Code Placeholder Image */}
+            <div className="relative w-44 sm:w-48 aspect-[400/480] rounded-xl overflow-hidden shadow-xl shrink-0 border border-blue-400/30 bg-white">
+              <Image
+                src="/images/placeholder-qris.svg"
+                alt="QRIS Pembayaran Resmi Acursio Official Store"
+                fill
+                className="object-contain p-1"
+                sizes="(max-width: 640px) 176px, 192px"
+              />
             </div>
 
             {/* Step by Step Instructions */}
