@@ -1,7 +1,6 @@
-'use client';
-
 import React from 'react';
-import { ShieldCheck, Lock, QrCode, Clock } from 'lucide-react';
+import Link from 'next/link';
+import { ShieldCheck, Lock, QrCode, Clock, ArrowRight } from 'lucide-react';
 
 export const SalesStats: React.FC = () => {
   const guaranteePillars = [
@@ -77,6 +76,17 @@ export const SalesStats: React.FC = () => {
             </div>
           );
         })}
+      </div>
+
+      {/* Link to /jaminan */}
+      <div className="mt-8 text-center">
+        <Link 
+          href="/jaminan"
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-sky-400 hover:text-white font-bold text-xs border border-[#1e2a3f] transition-all font-outfit group"
+        >
+          <span>Pelajari Selengkapnya Protokol Jaminan & FAQ</span>
+          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+        </Link>
       </div>
     </section>
   );

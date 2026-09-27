@@ -1,8 +1,7 @@
-'use client';
-
 import React from 'react';
+import Link from 'next/link';
 import { GAME_SERVICES, GameService } from '@/data/services';
-import { Gamepad2 } from 'lucide-react';
+import { Gamepad2, ArrowRight } from 'lucide-react';
 
 interface ServiceGridProps {
   onSelectService: (service: GameService) => void;
@@ -12,13 +11,22 @@ export const ServiceGrid: React.FC<ServiceGridProps> = ({ onSelectService }) => 
   return (
     <section id="layanan" className="py-8 sm:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header */}
-      <div className="mb-6 sm:mb-8">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-outfit">
-          Pilihan Game Jual Beli Akun
-        </h2>
-        <p className="mt-1 text-sm sm:text-base text-slate-400 max-w-2xl font-medium">
-          Menyediakan ekosistem transaksi jual beli akun game yang aman dengan jaminan Anti Hack-Back 100%.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-3">
+        <div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-outfit">
+            Pilihan Game Jual Beli Akun
+          </h2>
+          <p className="mt-1 text-sm sm:text-base text-slate-400 max-w-2xl font-medium">
+            Menyediakan ekosistem transaksi jual beli akun game yang aman dengan jaminan Anti Hack-Back 100%.
+          </p>
+        </div>
+        <Link 
+          href="/game" 
+          className="text-xs sm:text-sm font-bold text-sky-400 hover:text-sky-300 font-outfit shrink-0 flex items-center gap-1 group"
+        >
+          <span>Detail Semua Game</span>
+          <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+        </Link>
       </div>
 
       {/* Grid of 5 Game Account Categories */}

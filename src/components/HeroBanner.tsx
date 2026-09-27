@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ExternalLink, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const HeroBanner: React.FC = () => {
@@ -13,7 +14,7 @@ export const HeroBanner: React.FC = () => {
       title: 'JUAL BELI AKUN GAME SULTAN TERPERCAYA',
       highlight: '100% ANTI HACK BACK • DATA LENGKAP & AMAN',
       ctaText: 'LIHAT KATALOG AKUN',
-      ctaLink: '#jubel',
+      ctaLink: '/katalog',
       image: '/images/placeholder-1600x900.svg',
       badge: 'GARANSI RESMI',
     },
@@ -22,7 +23,7 @@ export const HeroBanner: React.FC = () => {
       title: 'KOLEKSI AKUN MOBILE LEGENDS, FF, PUBG, GENSHIN & E-FOOTBALL',
       highlight: 'SKIN COLLECTOR, LEGEND, EVO GUN & SQUAD SULTAN',
       ctaText: 'PILIH GAME FAVORIT',
-      ctaLink: '#jubel',
+      ctaLink: '/game',
       image: '/images/placeholder-1600x900.svg',
       badge: 'TERVERIFIKASI',
     },
@@ -31,7 +32,7 @@ export const HeroBanner: React.FC = () => {
       title: 'PEMBAYARAN MUDAH VIA QRIS ALL PAYMENT',
       highlight: 'BCA, MANDIRI, BRI, GOPAY, DANA • KONFIRMASI WHATSAPP',
       ctaText: 'ORDER AKUN SEKARANG',
-      ctaLink: '#jubel',
+      ctaLink: '/katalog',
       image: '/images/placeholder-1600x900.svg',
       badge: 'SERAH TERIMA KILAT',
     },
@@ -86,13 +87,13 @@ export const HeroBanner: React.FC = () => {
 
             {/* Click CTA Button */}
             <div className="mt-4 sm:mt-6">
-              <a
+              <Link
                 href={active.ctaLink}
                 className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-blue-600/30 font-outfit"
               >
                 <span>{active.ctaText}</span>
                 <ExternalLink size={15} className="group-hover:translate-x-0.5 transition-transform" />
-              </a>
+              </Link>
             </div>
 
             {/* Security Guarantee Tag */}

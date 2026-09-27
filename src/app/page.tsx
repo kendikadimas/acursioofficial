@@ -14,7 +14,6 @@ import { GameAccount, GameCategory } from '@/types/account';
 import { GameService } from '@/data/services';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<string>('beranda');
   const [selectedCategory, setSelectedCategory] = useState<GameCategory | 'all'>('all');
   const [inspectAccount, setInspectAccount] = useState<GameAccount | null>(null);
   const [checkoutAccount, setCheckoutAccount] = useState<GameAccount | null>(null);
@@ -25,7 +24,6 @@ export default function Home() {
     const jubelSection = document.getElementById('jubel');
     if (jubelSection) {
       jubelSection.scrollIntoView({ behavior: 'smooth' });
-      setActiveTab('jubel');
     }
   };
 
@@ -42,7 +40,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#06080d] text-[#f1f5f9] relative selection:bg-blue-600 selection:text-white">
       {/* Fixed Navbar */}
-      <Navbar activeTab={activeTab} onNavigate={(tab) => setActiveTab(tab)} />
+      <Navbar />
 
       {/* Hero Banner Carousel (Screenshot 2) */}
       <div id="beranda">

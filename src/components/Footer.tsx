@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { AcursioLogo } from './AcursioLogo';
 import { PAYMENT_CONFIG } from '@/data/payment';
 import { 
@@ -18,25 +19,25 @@ export const Footer: React.FC = () => {
       <div className="border-b border-[#141a28] bg-[#07090f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-red-600/15 text-red-400 flex items-center justify-center shrink-0 border border-red-500/20">
+            <Link href="/jaminan" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 rounded-xl bg-red-600/15 text-red-400 flex items-center justify-center shrink-0 border border-red-500/20 group-hover:border-red-500/60 transition-colors">
                 <ShieldCheck size={20} />
               </div>
               <div>
-                <div className="text-xs sm:text-sm font-bold text-white">100% Anti Hack-Back</div>
+                <div className="text-xs sm:text-sm font-bold text-white group-hover:text-red-300 transition-colors">100% Anti Hack-Back</div>
                 <div className="text-[11px] text-slate-400">Garansi ganti akun atau uang kembali penuh</div>
               </div>
-            </div>
+            </Link>
 
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/15 text-sky-400 flex items-center justify-center shrink-0 border border-blue-500/20">
+            <Link href="/jaminan" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 rounded-xl bg-blue-600/15 text-sky-400 flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:border-sky-500/60 transition-colors">
                 <Clock size={20} />
               </div>
               <div>
-                <div className="text-xs sm:text-sm font-bold text-white">Serah Terima Akun Kilat</div>
+                <div className="text-xs sm:text-sm font-bold text-white group-hover:text-sky-300 transition-colors">Serah Terima Akun Kilat</div>
                 <div className="text-[11px] text-slate-400">5 - 15 menit langsung login ganti email</div>
               </div>
-            </div>
+            </Link>
 
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-600/15 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20">
@@ -48,15 +49,15 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-600/15 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/20">
+            <Link href="/katalog" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 rounded-xl bg-indigo-600/15 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/20 group-hover:border-indigo-500/60 transition-colors">
                 <CheckCircle2 size={20} />
               </div>
               <div>
-                <div className="text-xs sm:text-sm font-bold text-white">Akun Terverifikasi & Aman</div>
+                <div className="text-xs sm:text-sm font-bold text-white group-hover:text-indigo-300 transition-colors">Akun Terverifikasi & Aman</div>
                 <div className="text-[11px] text-slate-400">Data bind lengkap dan bergaransi resmi</div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -70,8 +71,14 @@ export const Footer: React.FC = () => {
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-medium">
               Acursio adalah platform marketplace jual beli akun game terpercaya di Indonesia. Kami menyediakan akun sultan bergaransi resmi dengan perlindungan 100% Anti Hack-Back.
             </p>
-            <div className="flex items-center gap-2 text-xs text-sky-400 font-semibold">
-              <span>Layanan Pelanggan WhatsApp Aktif</span>
+            <div className="flex items-center gap-3 pt-2 text-xs font-semibold">
+              <Link href="/jaminan" className="text-sky-400 hover:text-sky-300 transition-colors">
+                Protokol Jaminan
+              </Link>
+              <span className="text-slate-600">•</span>
+              <Link href="/kontak" className="text-sky-400 hover:text-sky-300 transition-colors">
+                Layanan CS 24 Jam
+              </Link>
             </div>
           </div>
 
@@ -82,29 +89,29 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm font-medium">
               <li>
-                <a href="#jubel" className="hover:text-sky-400 transition-colors">
+                <Link href="/katalog" className="hover:text-sky-400 transition-colors">
                   Mobile Legends: Akun Sultan & Skin Collector
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#jubel" className="hover:text-sky-400 transition-colors">
+                <Link href="/katalog" className="hover:text-sky-400 transition-colors">
                   Free Fire: Akun Old Season & Evo Gun Max
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#jubel" className="hover:text-sky-400 transition-colors">
+                <Link href="/katalog" className="hover:text-sky-400 transition-colors">
                   PUBG Mobile: Pharaoh X-Suit & Glacier Hit Effect
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#jubel" className="hover:text-sky-400 transition-colors">
+                <Link href="/katalog" className="hover:text-sky-400 transition-colors">
                   Genshin Impact: Akun AR Tinggi C6 R5
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#jubel" className="hover:text-sky-400 transition-colors">
+                <Link href="/katalog" className="hover:text-sky-400 transition-colors">
                   E-Football: Skuad Impian Messi BigTime
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
