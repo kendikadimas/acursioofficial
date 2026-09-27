@@ -59,8 +59,6 @@ export const Navbar: React.FC = () => {
           <span>Kalana Labs</span>
           <ExternalLink size={11} />
         </a>
-        <span className="hidden sm:inline text-slate-500">•</span>
-        <span className="hidden sm:inline text-slate-400 text-[11px]">Eksplorasi Konsep Jual Beli Akun Game</span>
       </aside>
 
       <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300 ${isScrolled ? 'py-2.5' : 'py-3.5'}`}>
