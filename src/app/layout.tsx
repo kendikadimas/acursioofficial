@@ -1,18 +1,5 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, Outfit } from 'next/font/google';
 import './globals.css';
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: '--font-sans',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-});
-
-const outfit = Outfit({
-  variable: '--font-outfit',
-  subsets: ['latin'],
-  weight: ['500', '600', '700', '800', '900'],
-});
 
 export const metadata: Metadata = {
   title: 'Acursio ID - Jual Beli Akun Game Terpercaya ML, FF, Genshin & Lainnya',
@@ -40,10 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="id"
-      className={`${plusJakartaSans.variable} ${outfit.variable} h-full antialiased scroll-smooth`}
-    >
+    <html lang="id" className="h-full antialiased scroll-smooth">
       <body className="min-h-full flex flex-col bg-[#07090e] text-[#f1f5f9] font-sans">
         {children}
       </body>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Image from 'next/image';
 import { GameAccount, GameCategory } from '@/types/account';
 import { GAME_ACCOUNTS, AVAILABLE_SKINS_FILTER } from '@/data/accounts';
 import { formatRupiah } from '@/data/payment';
@@ -350,121 +351,101 @@ export const AccountCatalog: React.FC<AccountCatalogProps> = ({
               </button>
             </div>
           ) : (
-            /* Product Grid matching Screenshot 1 */
+            /* Product Grid: Image -> Title -> Desc -> Price -> Spek on click */
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
               {filteredAccounts.map((acc) => (
                 <div
                   key={acc.id}
-                  className="group rounded-2xl overflow-hidden bg-[#0c101a] border border-[#182235] hover:border-blue-500/80 transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:shadow-blue-950/40"
+                  className="group rounded-2xl overflow-hidden bg-[#0c101a] border border-[#182235] hover:border-blue-500/80 transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-xl hover:shadow-blue-950/40"
                 >
-                  {/* Card Visual Header (montage inspired by Screenshot 1) */}
-                  <div className="relative w-full bg-gradient-to-b from-[#131b2e] to-[#080b13] p-4 flex flex-col justify-between min-h-[220px]">
-                    
-                    {/* Top: ANTI HACK BACK Red Badge matching Screenshot 1 */}
-                    <div className="flex items-center justify-between z-10">
-                      <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-sm font-outfit">
-                        <ShieldCheck size={12} className="text-white" />
+                  {/* 1. Image Container (Resolution Placeholder) */}
+                  <div
+                    onClick={() => onSelectAccount(acc)}
+                    className="relative w-full aspect-[16/10] overflow-hidden bg-[#0a0e17] cursor-pointer"
+                  >
+                    <Image
+                      src={acc.thumbnailUrl}
+                      alt={acc.title}
+                      fill
+                      className="object-cover group-hover:scale-102 transition-transform duration-300"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+
+                    {/* Top Badges */}
+                    <div className="absolute top-2.5 inset-x-2.5 flex items-center justify-between pointer-events-none">
+                      <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-red-600 text-white text-[10px] font-black uppercase tracking-wider shadow-sm font-outfit">
+                        <ShieldCheck size={11} className="text-white" />
                         <span>ANTI HACK BACK</span>
                       </div>
 
-                      <span className="text-[10px] font-semibold text-slate-300 bg-black/60 px-2 py-0.5 rounded border border-white/10 font-mono">
+                      <span className="text-[10px] font-bold text-sky-300 bg-black/75 px-2 py-0.5 rounded border border-white/10 font-mono backdrop-blur-xs">
                         {acc.gameTitle}
                       </span>
                     </div>
 
-                    {/* Middle Graphic Spec Box matching Screenshot 1 */}
-                    <div className="my-2.5 p-3 rounded-xl bg-black/75 border border-blue-500/20 backdrop-blur-xs flex flex-col items-center justify-center text-center">
-                      <div className="text-xs font-black text-amber-300 uppercase tracking-widest mb-1 flex items-center gap-1 font-outfit">
-                        <Flame size={12} className="text-blue-400" />
-                        <span>{acc.specs.rank}</span>
-                      </div>
-
-                      {/* 4-grid stats: Skins, Match, WR, Emblem */}
-                      <div className="grid grid-cols-4 gap-1.5 w-full mt-2 pt-2 border-t border-white/10 text-center font-mono">
-                        <div>
-                          <div className="text-xs font-black text-white">{acc.specs.totalSkins || '-'}</div>
-                          <div className="text-[9px] text-slate-400 font-semibold uppercase">Skins</div>
-                        </div>
-                        <div>
-                          <div className="text-xs font-black text-white">{acc.specs.matches || '-'}</div>
-                          <div className="text-[9px] text-slate-400 font-semibold uppercase">Match</div>
-                        </div>
-                        <div>
-                          <div className="text-xs font-black text-sky-400">
-                            {acc.specs.winrate ? `${acc.specs.winrate}%` : '-'}
-                          </div>
-                          <div className="text-[9px] text-slate-400 font-semibold uppercase">WR</div>
-                        </div>
-                        <div>
-                          <div className="text-xs font-black text-emerald-400">{acc.specs.emblemStatus || 'FULL'}</div>
-                          <div className="text-[9px] text-slate-400 font-semibold uppercase">Emblem</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Price strip matching Screenshot 1 */}
-                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-2.5 flex items-center justify-between text-white shadow-xs">
-                      <div>
-                        <div className="text-base font-black tracking-tight font-outfit">
-                          {formatRupiah(acc.price)}
-                        </div>
-                        {acc.originalPrice && (
-                          <div className="text-[10px] text-blue-200 line-through -mt-0.5 font-mono">
-                            {formatRupiah(acc.originalPrice)}
-                          </div>
-                        )}
-                      </div>
-                      {acc.myrPrice && (
-                        <div className="text-xs font-black bg-black/40 px-2 py-0.5 rounded text-amber-200 font-mono">
-                          {acc.myrPrice} RM
-                        </div>
-                      )}
+                    {/* Bottom Code Tag */}
+                    <div className="absolute bottom-2.5 left-2.5 pointer-events-none">
+                      <span className="text-[11px] font-black font-mono text-white bg-blue-600/90 px-2.5 py-0.5 rounded shadow-sm">
+                        {acc.code}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Card Body matching Screenshot 1 */}
+                  {/* Card Body: Title, Desc, Price & Actions */}
                   <div className="p-4 flex flex-col justify-between flex-1 bg-[#0c101a]">
-                    
-                    {/* Tags matching Screenshot 1: #badang (collector) #lunox (legend) & +12 lainnya */}
-                    <div className="flex flex-wrap gap-1.5 mb-2.5">
-                      {acc.tags.map((tag, tIdx) => (
-                        <span
-                          key={tIdx}
-                          className="text-[11px] font-semibold text-sky-300 bg-sky-500/10 px-2 py-0.5 rounded-md border border-sky-500/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Code & Title */}
                     <div>
-                      <div className="text-xs font-mono font-extrabold text-slate-400 uppercase tracking-wider">
-                        {acc.code}
-                      </div>
-                      <h4 
+                      {/* 2. Title Produk */}
+                      <h3
                         onClick={() => onSelectAccount(acc)}
-                        className="text-sm font-bold text-white line-clamp-2 mt-0.5 hover:text-sky-400 transition-colors cursor-pointer leading-snug"
+                        className="text-sm sm:text-base font-bold text-white hover:text-sky-400 transition-colors cursor-pointer leading-snug font-outfit line-clamp-2"
                       >
                         {acc.title}
-                      </h4>
+                      </h3>
+
+                      {/* 3. Description */}
+                      <p className="text-xs text-slate-400 line-clamp-2 font-medium leading-relaxed mt-2 mb-3">
+                        {acc.description || `${acc.gameTitle} terawat dengan data bind aman dan garansi 100% Anti Hack-Back.`}
+                      </p>
                     </div>
 
-                    {/* Price & Action Buttons */}
-                    <div className="mt-4 pt-3 border-t border-[#172033] flex items-center gap-2">
-                      <button
-                        onClick={() => onSelectAccount(acc)}
-                        className="flex-1 py-2 px-3 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-slate-300 hover:text-white font-semibold text-xs transition-colors border border-[#1e2a3f]"
-                      >
-                        Detail Akun
-                      </button>
+                    {/* 4. Harga & Spek on click */}
+                    <div className="pt-3 border-t border-[#172033] mt-auto">
+                      {/* Price tag */}
+                      <div className="flex items-baseline justify-between mb-3">
+                        <div>
+                          <div className="text-base sm:text-lg font-black text-white tracking-tight font-outfit">
+                            {formatRupiah(acc.price)}
+                          </div>
+                          {acc.originalPrice && (
+                            <div className="text-[11px] text-slate-500 line-through font-mono">
+                              {formatRupiah(acc.originalPrice)}
+                            </div>
+                          )}
+                        </div>
 
-                      <button
-                        onClick={() => onInstantBuy(acc)}
-                        className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs transition-all shadow-md shadow-blue-600/30 text-center font-outfit"
-                      >
-                        Beli Akun
-                      </button>
+                        {acc.myrPrice && (
+                          <span className="text-xs font-bold text-amber-300 font-mono bg-[#141b2a] px-2 py-0.5 rounded border border-amber-500/20">
+                            {acc.myrPrice} RM
+                          </span>
+                        )}
+                      </div>
+
+                      {/* 5. Spek bisa dilihat setelah klik (Buttons) */}
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => onSelectAccount(acc)}
+                          className="flex-1 py-2 px-3 rounded-xl bg-[#121826] hover:bg-[#1a2336] text-slate-300 hover:text-white font-semibold text-xs transition-colors border border-[#1e2a3f] text-center"
+                        >
+                          Lihat Spek
+                        </button>
+
+                        <button
+                          onClick={() => onInstantBuy(acc)}
+                          className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs transition-all shadow-md shadow-blue-600/30 text-center font-outfit"
+                        >
+                          Beli Akun
+                        </button>
+                      </div>
                     </div>
 
                   </div>

@@ -11,6 +11,7 @@ export interface GameAccount {
   game: GameCategory;
   gameTitle: string;
   title: string;
+  description?: string;
   price: number;
   originalPrice: number;
   myrPrice?: number;

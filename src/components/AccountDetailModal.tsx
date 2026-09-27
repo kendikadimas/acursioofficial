@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import Image from 'next/image';
 import { GameAccount } from '@/types/account';
 import { formatRupiah } from '@/data/payment';
 import { 
   X, 
   ShieldCheck, 
   Flame, 
-  Sparkles, 
   Check, 
   ShoppingBag, 
   Lock, 
@@ -57,9 +57,20 @@ export const AccountDetailModal: React.FC<AccountDetailModalProps> = ({
           <X size={20} />
         </button>
 
+        {/* Product Image Preview */}
+        <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-[#070a12] mb-4 border border-[#1b2336]">
+          <Image
+            src={account.thumbnailUrl}
+            alt={account.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 640px"
+          />
+        </div>
+
         {/* Header Tags & Code */}
-        <div className="flex flex-wrap items-center gap-2 mb-3 pr-8">
-          <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-red-600 text-white text-xs font-black uppercase tracking-wider shadow-sm">
+        <div className="flex flex-wrap items-center gap-2 mb-2 pr-8">
+          <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-red-600 text-white text-xs font-black uppercase tracking-wider shadow-sm font-outfit">
             <ShieldCheck size={14} />
             <span>ANTI HACK BACK</span>
           </div>
@@ -73,10 +84,15 @@ export const AccountDetailModal: React.FC<AccountDetailModalProps> = ({
           </span>
         </div>
 
-        {/* Title */}
-        <h3 className="text-xl sm:text-2xl font-black text-white leading-snug">
+        {/* Title & Description */}
+        <h3 className="text-xl sm:text-2xl font-black text-white leading-snug font-outfit">
           {account.title}
         </h3>
+        {account.description && (
+          <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+            {account.description}
+          </p>
+        )}
 
         {/* Price & Strikethrough Box */}
         <div className="my-4 p-4 rounded-2xl bg-gradient-to-r from-blue-600/15 via-[#101625] to-[#101625] border border-blue-500/30 flex items-center justify-between">
@@ -187,7 +203,7 @@ export const AccountDetailModal: React.FC<AccountDetailModalProps> = ({
         {account.highlightSkins && account.highlightSkins.length > 0 && (
           <div className="mb-5">
             <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-              <Sparkles size={15} className="text-blue-400" />
+              <Award size={15} className="text-blue-400" />
               <span>Daftar Skin / Item Eksklusif Terkunci:</span>
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">

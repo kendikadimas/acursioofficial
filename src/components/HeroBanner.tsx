@@ -14,7 +14,7 @@ export const HeroBanner: React.FC = () => {
       highlight: '100% ANTI HACK BACK • DATA LENGKAP & AMAN',
       ctaText: 'LIHAT KATALOG AKUN',
       ctaLink: '#jubel',
-      image: '/images/hero-banner.jpg',
+      image: '/images/placeholder-1600x900.svg',
       badge: 'GARANSI RESMI',
     },
     {
@@ -23,7 +23,7 @@ export const HeroBanner: React.FC = () => {
       highlight: 'SKIN COLLECTOR, LEGEND, EVO GUN & SQUAD SULTAN',
       ctaText: 'PILIH GAME FAVORIT',
       ctaLink: '#jubel',
-      image: '/images/hero-banner.jpg',
+      image: '/images/placeholder-1600x900.svg',
       badge: 'TERVERIFIKASI',
     },
     {
@@ -32,7 +32,7 @@ export const HeroBanner: React.FC = () => {
       highlight: 'BCA, MANDIRI, BRI, GOPAY, DANA • KONFIRMASI WHATSAPP',
       ctaText: 'ORDER AKUN SEKARANG',
       ctaLink: '#jubel',
-      image: '/images/hero-banner.jpg',
+      image: '/images/placeholder-1600x900.svg',
       badge: 'SERAH TERIMA KILAT',
     },
   ];
